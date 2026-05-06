@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="fr" class="cp-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CleanPawn — Transformez vos objets en liquidités. Expertise humaine, paiement sous 24h, zéro frais de dépôt." />
+  <title>CleanPawn — Transformez vos objets en liquidités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CLEANPAWN — DESIGN SYSTEM
+       Préfixe : cp-  (évite conflits WordPress / WooCommerce)
+       Palette : Noir warm #07060A · Navy #0D1425 · Or #B88C39
+                 Bleu électrique #3B82F6 · Vert #10B981
+       Stack  : HTML/CSS vanilla · Mobile-first · No framework
+    ============================================================ */
+
+    /* ----------------------------------------
+       TOKENS
+    ---------------------------------------- */
+    .cp-root {
+      --cp-bg:            #07060A;
+      --cp-navy:          #0D1425;
+      --cp-surface:       #111827;
+      --cp-surface-hi:    #1A2540;
+      --cp-border:        rgba(255,255,255,0.07);
+      --cp-border-gold:   rgba(184,140,57,0.28);
+      --cp-text:          #F1F5F9;
+      --cp-text-muted:    #94A3B8;
+      --cp-text-dim:      #475569;
+      --cp-blue:          #3B82F6;
+      --cp-blue-dim:      rgba(59,130,246,0.12);
+      --cp-blue-glow:     rgba(59,130,246,0.28);
+      --cp-gold:          #B88C39;
+      --cp-gold-bright:   #F0A500;
+      --cp-gold-dim:      rgba(184,140,57,0.14);
+      --cp-green:         #10B981;
+      --cp-green-dim:     rgba(16,185,129,0.12);
+      --cp-red:           #EF4444;
+      --cp-red-dim:       rgba(239,68,68,0.10);
+      --cp-r-sm:          6px;
+      --cp-r:             12px;
+      --cp-r-lg:          20px;
+      --cp-r-xl:          28px;
+      --cp-font:          'Inter', system-ui, -apple-system, sans-serif;
+      --cp-mono:          'JetBrains Mono', 'Courier New', monospace;
+      --cp-nav-h:         68px;
+      --cp-ease:          cubic-bezier(0.4,0,0.2,1);
+      --cp-t:             0.25s;
+    }
+
+    /* ----------------------------------------
+       RESET
+    ---------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .cp-root { scroll-behavior: smooth; }
+    .cp-body {
+      font-family: var(--cp-font);
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .cp-body a { color: inherit; text-decoration: none; }
+    .cp-body img, .cp-body svg { display: block; }
+    .cp-body ul, .cp-body ol { list-style: none; }
+    .cp-body button {
+      font-family: var(--cp-font);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ----------------------------------------
+       LAYOUT UTILS
+    ---------------------------------------- */
+    .cp-wrap {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .cp-section-eyebrow {
+      font-family: var(--cp-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cp-blue);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .cp-section-title {
+      font-size: clamp(1.8rem, 4.5vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      color: var(--cp-text);
+    }
+    .cp-section-sub {
+      font-size: 1rem;
+      color: var(--cp-text-muted);
+      margin-top: 12px;
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    /* ----------------------------------------
+       SCROLL REVEAL
+    ---------------------------------------- */
+    .cp-reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.6s var(--cp-ease), transform 0.6s var(--cp-ease);
+    }
+    .cp-reveal.cp-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cp-reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ----------------------------------------
+       BUTTONS
+    ---------------------------------------- */
+    .cp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--cp-r-sm);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      transition: all var(--cp-t) var(--cp-ease);
+      white-space: nowrap;
+      cursor: pointer;
+      border: none;
+      font-family: var(--cp-font);
+    }
+    .cp-btn--primary {
+      background: var(--cp-blue);
+      color: #fff;
+      box-shadow: 0 0 0 0 var(--cp-blue-glow);
+    }
+    .cp-btn--primary:hover {
+      background: #2563EB;
+      box-shadow: 0 0 28px var(--cp-blue-glow);
+      transform: translateY(-2px);
+    }
+    .cp-btn--gold {
+      background: linear-gradient(135deg, var(--cp-gold), var(--cp-gold-bright));
+      color: #000;
+      font-weight: 700;
+    }
+    .cp-btn--gold:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+    .cp-btn--ghost {
+      background: transparent;
+      color: var(--cp-text-muted);
+      border: 1px solid var(--cp-border);
+      padding: 13px 28px;
+    }
+    .cp-btn--ghost:hover {
+      border-color: rgba(255,255,255,0.22);
+      color: var(--cp-text);
+    }
+    .cp-btn--sm { padding: 9px 20px; font-size: 0.875rem; }
+
+    /* ----------------------------------------
+       NAV
+    ---------------------------------------- */
+    .cp-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--cp-nav-h);
+      border-bottom: 1px solid transparent;
+      transition:
+        background var(--cp-t) var(--cp-ease),
+        border-color var(--cp-t) var(--cp-ease),
+        backdrop-filter var(--cp-t) var(--cp-ease);
+    }
+    .cp-nav--scrolled {
+      background: rgba(7,6,10,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-color: var(--cp-border);
+    }
+    .cp-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .cp-nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--cp-text);
+    }
+    .cp-nav__logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--cp-gold), var(--cp-gold-bright));
+      border-radius: var(--cp-r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: -0.06em;
+      flex-shrink: 0;
+    }
+    .cp-nav__links {
+      display: none;
+      align-items: center;
+      gap: 30px;
+    }
+    .cp-nav__links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--cp-text-muted);
+      transition: color var(--cp-t);
+    }
+    .cp-nav__links a:hover { color: var(--cp-text); }
+    .cp-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cp-nav__login {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--cp-text-muted);
+      transition: color var(--cp-t);
+      display: none;
+    }
+    .cp-nav__login:hover { color: var(--cp-text); }
+    @media (min-width: 768px) {
+      .cp-nav__login { display: block; }
+    }
+    @media (min-width: 1024px) {
+      .cp-nav__links { display: flex; }
+    }
+
+    /* ----------------------------------------
+       HERO
+    ---------------------------------------- */
+    .cp-hero {
+      min-height: 100svh;
+      padding-top: calc(var(--cp-nav-h) + 56px);
+      padding-bottom: 80px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 25% at 85% 65%, rgba(184,140,57,0.07) 0%, transparent 55%),
+        var(--cp-bg);
+    }
+    .cp-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .cp-hero__left { display: flex; flex-direction: column; gap: 24px; }
+
+    .cp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--cp-gold-dim);
+      border: 1px solid var(--cp-border-gold);
+      border-radius: 100px;
+      font-family: var(--cp-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cp-gold-bright);
+      letter-spacing: 0.04em;
+      align-self: flex-start;
+    }
+    .cp-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cp-gold);
+      flex-shrink: 0;
+      animation: cp-pulse-ring 2.5s ease-in-out infinite;
+    }
+
+    .cp-hero__title {
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+    .cp-hero__title-accent { color: var(--cp-gold-bright); }
+
+    .cp-hero__sub {
+      font-size: 1.0625rem;
+      color: var(--cp-text-muted);
+      line-height: 1.7;
+      max-width: 460px;
+    }
+    .cp-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cp-hero__proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 4px;
+    }
+    .cp-proof-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--cp-mono);
+      font-size: 0.8rem;
+      color: var(--cp-text-muted);
+    }
+    .cp-proof-item::before {
+      content: '✓';
+      color: var(--cp-green);
+      font-weight: 700;
+    }
+
+    /* ---- Dashboard Widget ---- */
+    .cp-dashboard {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-xl);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cp-dashboard::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cp-blue), transparent);
+      opacity: 0.7;
+    }
+    .cp-db-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .cp-db-title {
+      font-family: var(--cp-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cp-text-muted);
+    }
+    .cp-live-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--cp-green);
+      box-shadow: 0 0 8px var(--cp-green);
+      flex-shrink: 0;
+      animation: cp-dot-pulse 2s ease-in-out infinite;
+    }
+    .cp-db-sub {
+      margin-left: auto;
+      font-family: var(--cp-mono);
+      font-size: 0.7rem;
+      color: var(--cp-text-dim);
+    }
+
+    .cp-db-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .cp-db-stat {
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r);
+      padding: 14px 16px;
+    }
+    .cp-db-stat__val {
+      display: block;
+      font-family: var(--cp-mono);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--cp-gold-bright);
+      letter-spacing: -0.02em;
+    }
+    .cp-db-stat__lbl {
+      display: block;
+      font-family: var(--cp-mono);
+      font-size: 0.7rem;
+      color: var(--cp-text-dim);
+      margin-top: 3px;
+    }
+
+    /* Sparkline */
+    .cp-sparkline-wrap {
+      height: 44px;
+      margin-bottom: 18px;
+    }
+    .cp-sparkline {
+      width: 100%;
+      height: 100%;
+    }
+    .cp-spark-line {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: cp-spark-draw 2.2s ease-out 0.6s forwards;
+    }
+    .cp-spark-fill {
+      opacity: 0;
+      animation: cp-fade-in 0.8s ease-out 1.8s forwards;
+    }
+
+    /* Feed */
+    .cp-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      overflow: hidden;
+      max-height: 168px;
+    }
+    .cp-feed-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-sm);
+      font-size: 0.8rem;
+      animation: cp-feed-slide 0.35s ease-out;
+    }
+    .cp-feed-item__name {
+      color: var(--cp-text);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cp-feed-item__amount {
+      font-family: var(--cp-mono);
+      font-weight: 700;
+      color: var(--cp-gold-bright);
+      white-space: nowrap;
+    }
+    .cp-feed-item__tag {
+      font-family: var(--cp-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .cp-tag--paid {
+      background: var(--cp-green-dim);
+      color: var(--cp-green);
+      border: 1px solid rgba(16,185,129,0.22);
+    }
+    .cp-tag--processing {
+      background: var(--cp-blue-dim);
+      color: var(--cp-blue);
+      border: 1px solid rgba(59,130,246,0.22);
+    }
+
+    @media (min-width: 1024px) {
+      .cp-hero__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        padding-top: calc(var(--cp-nav-h) + 80px);
+      }
+      .cp-hero { padding-top: var(--cp-nav-h); }
+    }
+
+    /* ----------------------------------------
+       PROOF STREAM (Marquee)
+    ---------------------------------------- */
+    .cp-stream {
+      background: var(--cp-navy);
+      border-top: 1px solid var(--cp-border);
+      border-bottom: 1px solid var(--cp-border);
+      padding: 12px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .cp-stream::before,
+    .cp-stream::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 96px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .cp-stream::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--cp-navy), transparent);
+    }
+    .cp-stream::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--cp-navy), transparent);
+    }
+    .cp-stream__belt {
+      display: flex;
+      width: max-content;
+      animation: cp-marquee 42s linear infinite;
+    }
+    .cp-stream__belt:hover { animation-play-state: paused; }
+    .cp-stream__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 28px;
+      font-family: var(--cp-mono);
+      font-size: 0.8125rem;
+      white-space: nowrap;
+      color: var(--cp-text-muted);
+    }
+    .cp-stream__ref { color: var(--cp-text-dim); }
+    .cp-stream__name { color: var(--cp-text); font-weight: 500; }
+    .cp-stream__price { color: var(--cp-gold-bright); font-weight: 700; }
+    .cp-stream__sep { color: var(--cp-text-dim); font-size: 8px; }
+    .cp-stream__ok { color: var(--cp-green); }
+
+    /* ----------------------------------------
+       ESTIMATION ENGINE
+    ---------------------------------------- */
+    .cp-engine {
+      padding: 100px 0;
+      background: var(--cp-navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .cp-engine::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(59,130,246,0.045) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cp-engine__layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .cp-engine__card {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-xl);
+      padding: 36px 32px;
+      position: relative;
+    }
+    .cp-engine__card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cp-gold), transparent);
+      opacity: 0.45;
+    }
+
+    .cp-step-label {
+      font-family: var(--cp-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cp-text-dim);
+      margin-bottom: 12px;
+    }
+    .cp-engine__fields { display: flex; flex-direction: column; gap: 28px; }
+
+    .cp-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cp-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--cp-text-muted);
+      cursor: pointer;
+      transition: all var(--cp-t) var(--cp-ease);
+      user-select: none;
+      font-family: var(--cp-font);
+    }
+    .cp-chip:hover {
+      border-color: rgba(255,255,255,0.18);
+      color: var(--cp-text);
+    }
+    .cp-chip--on {
+      background: var(--cp-blue-dim);
+      border-color: var(--cp-blue);
+      color: var(--cp-text);
+    }
+
+    .cp-field {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-sm);
+      color: var(--cp-text);
+      font-family: var(--cp-font);
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color var(--cp-t) var(--cp-ease);
+      -webkit-appearance: none;
+    }
+    .cp-field:focus { border-color: var(--cp-blue); }
+    .cp-field::placeholder { color: var(--cp-text-dim); }
+
+    .cp-engine__submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 16px;
+      font-size: 1rem;
+    }
+
+    /* Result panel */
+    .cp-result {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border-gold);
+      border-radius: var(--cp-r);
+      animation: cp-result-in 0.45s var(--cp-ease);
+    }
+    .cp-result--show { display: block; }
+    .cp-result__eyebrow {
+      font-family: var(--cp-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cp-text-dim);
+      margin-bottom: 8px;
+    }
+    .cp-result__range {
+      font-family: var(--cp-mono);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--cp-gold-bright);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .cp-result__note {
+      font-size: 0.8125rem;
+      color: var(--cp-text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .cp-result__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .cp-engine__aside { display: flex; flex-direction: column; gap: 16px; }
+    .cp-aside-card {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-lg);
+      padding: 24px;
+    }
+    .cp-aside-card__icon { font-size: 26px; margin-bottom: 12px; }
+    .cp-aside-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cp-text);
+      margin-bottom: 8px;
+    }
+    .cp-aside-card__body {
+      font-size: 0.875rem;
+      color: var(--cp-text-muted);
+      line-height: 1.65;
+    }
+    .cp-aside-card--gold {
+      border-color: var(--cp-border-gold);
+      background: linear-gradient(135deg, var(--cp-surface) 0%, rgba(184,140,57,0.06) 100%);
+    }
+
+    @media (min-width: 900px) {
+      .cp-engine__layout { grid-template-columns: 1.1fr 0.9fr; }
+    }
+
+    /* ----------------------------------------
+       TRUST MATRIX (KPIs)
+    ---------------------------------------- */
+    .cp-matrix {
+      padding: 100px 0;
+      background: var(--cp-bg);
+    }
+    .cp-matrix__header { margin-bottom: 52px; }
+    .cp-matrix__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .cp-kpi {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-lg);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--cp-t) var(--cp-ease), box-shadow var(--cp-t) var(--cp-ease);
+    }
+    .cp-kpi:hover {
+      border-color: rgba(59,130,246,0.28);
+      box-shadow: 0 0 36px rgba(59,130,246,0.07);
+    }
+    .cp-kpi__icon {
+      width: 40px; height: 40px;
+      border-radius: var(--cp-r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .cp-kpi__icon--blue  { background: var(--cp-blue-dim);  border: 1px solid rgba(59,130,246,0.18); }
+    .cp-kpi__icon--gold  { background: var(--cp-gold-dim);  border: 1px solid var(--cp-border-gold); }
+    .cp-kpi__icon--green { background: var(--cp-green-dim); border: 1px solid rgba(16,185,129,0.18); }
+    .cp-kpi__icon--dim   { background: var(--cp-surface-hi); border: 1px solid var(--cp-border); }
+    .cp-kpi__value {
+      display: block;
+      font-family: var(--cp-mono);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--cp-text);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .cp-kpi__value-accent { color: var(--cp-gold-bright); }
+    .cp-kpi__label {
+      font-size: 0.85rem;
+      color: var(--cp-text-muted);
+      line-height: 1.45;
+    }
+    .cp-kpi__pill {
+      position: absolute;
+      top: 18px; right: 18px;
+      font-family: var(--cp-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+    .cp-pill--green {
+      background: var(--cp-green-dim);
+      color: var(--cp-green);
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+    .cp-pill--gold {
+      background: var(--cp-gold-dim);
+      color: var(--cp-gold-bright);
+      border: 1px solid var(--cp-border-gold);
+    }
+    .cp-matrix__footnote {
+      text-align: center;
+      margin-top: 36px;
+      font-family: var(--cp-mono);
+      font-size: 0.75rem;
+      color: var(--cp-text-dim);
+      letter-spacing: 0.06em;
+    }
+    @media (min-width: 768px) {
+      .cp-matrix__grid { grid-template-columns: repeat(4,1fr); }
+    }
+
+    /* ----------------------------------------
+       PIPELINE
+    ---------------------------------------- */
+    .cp-pipeline {
+      padding: 100px 0;
+      background: var(--cp-navy);
+    }
+    .cp-pipeline__header { margin-bottom: 56px; }
+    .cp-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      position: relative;
+    }
+    /* Vertical connector line (mobile) */
+    .cp-steps::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cp-blue) 0%, var(--cp-gold) 50%, var(--cp-border) 100%);
+      opacity: 0.35;
+      border-radius: 2px;
+    }
+    .cp-step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 20px;
+      padding: 20px 0;
+      align-items: flex-start;
+      position: relative;
+    }
+    .cp-step__node {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--cp-mono);
+      font-size: 0.875rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .cp-step__node--done  { background: var(--cp-green); color: #000; }
+    .cp-step__node--active {
+      background: var(--cp-blue); color: #fff;
+      box-shadow: 0 0 0 6px var(--cp-blue-dim);
+      animation: cp-glow-ring 2.5s ease-in-out infinite;
+    }
+    .cp-step__node--wait {
+      background: var(--cp-surface-hi);
+      color: var(--cp-text-dim);
+      border: 2px solid var(--cp-border);
+    }
+    .cp-step__body { padding-bottom: 8px; }
+    .cp-step__head {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .cp-step__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cp-text);
+    }
+    .cp-step__time {
+      font-family: var(--cp-mono);
+      font-size: 0.7rem;
+      color: var(--cp-text-dim);
+      background: var(--cp-surface-hi);
+      padding: 2px 8px;
+      border-radius: 100px;
+      border: 1px solid var(--cp-border);
+    }
+    .cp-step__desc {
+      font-size: 0.9rem;
+      color: var(--cp-text-muted);
+      line-height: 1.65;
+    }
+
+    @media (min-width: 768px) {
+      .cp-steps {
+        grid-template-columns: repeat(4,1fr);
+      }
+      /* Horizontal connector (desktop) */
+      .cp-steps::before {
+        left: 21px;
+        right: 21px;
+        top: 20px;
+        bottom: auto;
+        width: auto;
+        height: 2px;
+        background: linear-gradient(90deg, var(--cp-blue) 0%, var(--cp-gold) 60%, var(--cp-border) 100%);
+      }
+      .cp-step {
+        grid-template-columns: 1fr;
+        grid-template-rows: 42px auto;
+        padding: 0;
+        padding-right: 16px;
+        align-items: start;
+        text-align: left;
+      }
+      .cp-step__node { margin-bottom: 20px; }
+      .cp-step__body { padding-top: 0; }
+      .cp-step__head { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+
+    /* ----------------------------------------
+       MARKET INTEL
+    ---------------------------------------- */
+    .cp-intel {
+      padding: 100px 0;
+      background: var(--cp-bg);
+    }
+    .cp-intel__top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .cp-intel__live {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--cp-mono);
+      font-size: 0.75rem;
+      color: var(--cp-text-dim);
+      margin-top: 8px;
+    }
+    .cp-intel__live .cp-live-dot {
+      width: 6px; height: 6px;
+    }
+    .cp-table-outer {
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-lg);
+      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cp-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 580px;
+    }
+    .cp-table thead th {
+      padding: 13px 20px;
+      background: var(--cp-surface);
+      font-family: var(--cp-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cp-text-dim);
+      text-align: left;
+      border-bottom: 1px solid var(--cp-border);
+      white-space: nowrap;
+    }
+    .cp-table tbody td {
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--cp-border);
+      color: var(--cp-text);
+      transition: background var(--cp-t);
+    }
+    .cp-table tbody tr:last-child td { border-bottom: none; }
+    .cp-table tbody tr:hover td { background: var(--cp-surface); }
+    .cp-table__cat { font-weight: 600; }
+    .cp-table__price {
+      font-family: var(--cp-mono);
+      font-weight: 700;
+      color: var(--cp-gold-bright);
+    }
+    .cp-table__trend {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--cp-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .cp-up   { color: var(--cp-green); }
+    .cp-down { color: var(--cp-red);   }
+    .cp-flat { color: var(--cp-text-muted); }
+    .cp-table__delay {
+      font-family: var(--cp-mono);
+      font-size: 0.8rem;
+      color: var(--cp-text-muted);
+    }
+    .cp-table__stock {
+      font-family: var(--cp-mono);
+      font-size: 0.8rem;
+      color: var(--cp-blue);
+      font-weight: 600;
+    }
+
+    /* ----------------------------------------
+       VAULT SECURITY
+    ---------------------------------------- */
+    .cp-vault-sec {
+      padding: 100px 0;
+      background: var(--cp-navy);
+    }
+    .cp-vault-sec__header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .cp-vault-sec__header .cp-section-sub {
+      margin: 12px auto 0;
+      text-align: center;
+    }
+    .cp-vault-pillars {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .cp-pillar {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-xl);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--cp-t) var(--cp-ease), box-shadow var(--cp-t) var(--cp-ease);
+    }
+    .cp-pillar:hover {
+      border-color: var(--cp-border-gold);
+      box-shadow: 0 0 48px rgba(184,140,57,0.07);
+    }
+    .cp-pillar::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .cp-pillar--id::after      { background: linear-gradient(90deg, var(--cp-blue), transparent); }
+    .cp-pillar--insure::after  { background: linear-gradient(90deg, var(--cp-gold), transparent); }
+    .cp-pillar--payment::after { background: linear-gradient(90deg, var(--cp-green), transparent); }
+    .cp-pillar__ico {
+      width: 52px; height: 52px;
+      border-radius: var(--cp-r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .cp-ico--blue  { background: var(--cp-blue-dim);  border: 1px solid rgba(59,130,246,0.2); }
+    .cp-ico--gold  { background: var(--cp-gold-dim);  border: 1px solid var(--cp-border-gold); }
+    .cp-ico--green { background: var(--cp-green-dim); border: 1px solid rgba(16,185,129,0.2); }
+    .cp-pillar__title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .cp-pillar__desc {
+      font-size: 0.9rem;
+      color: var(--cp-text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .cp-cert-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cp-cert {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: var(--cp-surface-hi);
+      border: 1px solid var(--cp-border);
+      border-radius: 100px;
+      font-family: var(--cp-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cp-text-dim);
+    }
+    @media (min-width: 768px) {
+      .cp-vault-pillars { grid-template-columns: repeat(3,1fr); }
+    }
+
+    /* ----------------------------------------
+       FOOTER CLEANPAWN
+    ---------------------------------------- */
+    .cp-footer {
+      background: #030207;
+      border-top: 1px solid var(--cp-border);
+      padding-top: 64px;
+    }
+    .cp-footer__body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--cp-border);
+    }
+    .cp-footer__brand { max-width: 300px; }
+    .cp-footer__wordmark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .cp-footer__tagline {
+      font-size: 0.9rem;
+      color: var(--cp-text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .cp-footer__socials { display: flex; gap: 10px; }
+    .cp-social {
+      width: 36px; height: 36px;
+      border: 1px solid var(--cp-border);
+      border-radius: var(--cp-r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--cp-mono);
+      color: var(--cp-text-muted);
+      transition: all var(--cp-t) var(--cp-ease);
+    }
+    .cp-social:hover {
+      border-color: var(--cp-gold);
+      color: var(--cp-gold-bright);
+    }
+    .cp-footer__cols {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 32px;
+    }
+    .cp-footer__col-head {
+      font-family: var(--cp-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cp-text-dim);
+      margin-bottom: 16px;
+    }
+    .cp-footer__links { display: flex; flex-direction: column; gap: 10px; }
+    .cp-footer__links a {
+      font-size: 0.875rem;
+      color: var(--cp-text-muted);
+      transition: color var(--cp-t);
+    }
+    .cp-footer__links a:hover { color: var(--cp-text); }
+
+    .cp-footer__bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 22px 0;
+    }
+    .cp-footer__regulated {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: var(--cp-gold-dim);
+      border: 1px solid var(--cp-border-gold);
+      border-radius: 100px;
+      font-family: var(--cp-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cp-gold-bright);
+      align-self: flex-start;
+    }
+    .cp-footer__copy {
+      font-family: var(--cp-mono);
+      font-size: 0.75rem;
+      color: var(--cp-text-dim);
+    }
+    .cp-footer__legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .cp-footer__legal-links a {
+      font-family: var(--cp-mono);
+      font-size: 0.72rem;
+      color: var(--cp-text-dim);
+      transition: color var(--cp-t);
+    }
+    .cp-footer__legal-links a:hover { color: var(--cp-text-muted); }
+
+    @media (min-width: 768px) {
+      .cp-footer__body { grid-template-columns: 1.4fr 2fr; }
+      .cp-footer__cols { grid-template-columns: repeat(3,1fr); }
+      .cp-footer__bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    /* ----------------------------------------
+       KEYFRAMES
+    ---------------------------------------- */
+    @keyframes cp-marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes cp-spark-draw {
+      from { stroke-dashoffset: 800; opacity: 0; }
+      to   { stroke-dashoffset: 0;   opacity: 1; }
+    }
+    @keyframes cp-fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes cp-dot-pulse {
+      0%,100% { box-shadow: 0 0 6px var(--cp-green); }
+      50%      { box-shadow: 0 0 16px var(--cp-green); opacity: 0.7; }
+    }
+    @keyframes cp-pulse-ring {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.55; }
+    }
+    @keyframes cp-feed-slide {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cp-glow-ring {
+      0%,100% { box-shadow: 0 0 0 5px var(--cp-blue-dim); }
+      50%      { box-shadow: 0 0 0 10px rgba(59,130,246,0.06); }
+    }
+    @keyframes cp-result-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="cp-body">
+
+  <!-- ═══════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════ -->
+  <nav class="cp-nav" id="cp-nav" role="navigation" aria-label="Navigation principale">
+    <div class="cp-nav__inner">
+      <a href="#" class="cp-nav__logo" aria-label="CleanPawn — Accueil">
+        <div class="cp-nav__logo-mark" aria-hidden="true">CP</div>
+        CleanPawn
+      </a>
+      <div class="cp-nav__links" role="menubar">
+        <a href="#cp-engine" role="menuitem">Estimer</a>
+        <a href="#cp-intel" role="menuitem">Marché</a>
+        <a href="#cp-pipeline" role="menuitem">Comment ça marche</a>
+        <a href="#cp-vault-sec" role="menuitem">Garanties</a>
+      </div>
+      <div class="cp-nav__actions">
+        <a href="#" class="cp-nav__login">Connexion</a>
+        <a href="#cp-engine" class="cp-btn cp-btn--primary cp-btn--sm">Estimer mon objet</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO — COMMAND CENTER
+  ═══════════════════════════════════════ -->
+  <section class="cp-hero" id="cp-hero" aria-label="Accueil CleanPawn">
+    <div class="cp-wrap cp-hero__grid">
+
+      <!-- Left: Headline + CTAs -->
+      <div class="cp-hero__left">
+        <span class="cp-badge">Plateforme de liquidité d'objets</span>
+        <h1 class="cp-hero__title">
+          Transformez<br>
+          <span class="cp-hero__title-accent">vos objets</span><br>
+          en liquidités.
+        </h1>
+        <p class="cp-hero__sub">
+          Expertise humaine certifiée. Virement bancaire sous 24h.
+          Zéro frais de dépôt. Zéro mauvaise surprise.
+        </p>
+        <div class="cp-hero__actions">
+          <a href="#cp-engine" class="cp-btn cp-btn--primary">Estimer mon objet →</a>
+          <a href="#cp-intel" class="cp-btn cp-btn--ghost">Voir les prix du marché</a>
+        </div>
+        <div class="cp-hero__proof" role="list" aria-label="Preuves de confiance">
+          <span class="cp-proof-item" role="listitem">4 812 transactions validées</span>
+          <span class="cp-proof-item" role="listitem">0 litige en 36 mois</span>
+          <span class="cp-proof-item" role="listitem">Noté 4.9/5</span>
+        </div>
+      </div>
+
+      <!-- Right: Dashboard widget -->
+      <div class="cp-hero__right">
+        <div class="cp-dashboard" role="region" aria-label="Tableau de bord activité temps réel">
+          <div class="cp-db-header">
+            <span class="cp-db-title">Vault Live</span>
+            <span class="cp-live-dot" aria-hidden="true"></span>
+            <span class="cp-db-sub">Activité en direct</span>
+          </div>
+          <div class="cp-db-stats">
+            <div class="cp-db-stat">
+              <span class="cp-db-stat__val" id="cp-vol">42 380 €</span>
+              <span class="cp-db-stat__lbl">Volume aujourd'hui</span>
+            </div>
+            <div class="cp-db-stat">
+              <span class="cp-db-stat__val" id="cp-cnt">131</span>
+              <span class="cp-db-stat__lbl">Objets en cours</span>
+            </div>
+          </div>
+          <!-- Sparkline SVG -->
+          <div class="cp-sparkline-wrap" aria-hidden="true">
+            <svg class="cp-sparkline" viewBox="0 0 300 56" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="cp-sg" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path class="cp-spark-fill"
+                d="M0,44 L25,38 L55,42 L80,28 L110,30 L135,18 L160,22 L185,14 L210,16 L235,9 L262,6 L300,3 L300,56 L0,56 Z"
+                fill="url(#cp-sg)"/>
+              <path id="cp-spark-path" class="cp-spark-line"
+                d="M0,44 L25,38 L55,42 L80,28 L110,30 L135,18 L160,22 L185,14 L210,16 L235,9 L262,6 L300,3"
+                fill="none" stroke="#3B82F6" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <!-- Live transaction feed -->
+          <div class="cp-feed" id="cp-feed" aria-live="polite" aria-label="Dernières transactions"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PROOF STREAM — Ticker transactions
+  ═══════════════════════════════════════ -->
+  <div class="cp-stream" aria-hidden="true">
+    <div class="cp-stream__belt" id="cp-stream-belt"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       ESTIMATION ENGINE
+  ═══════════════════════════════════════ -->
+  <section class="cp-engine" id="cp-engine" aria-label="Outil d'estimation gratuit">
+    <div class="cp-wrap">
+      <div class="cp-engine__layout">
+
+        <!-- Main form card -->
+        <div>
+          <div class="cp-reveal" style="margin-bottom:36px">
+            <span class="cp-section-eyebrow">Estimation instantanée</span>
+            <h2 class="cp-section-title">Combien vaut<br>votre objet ?</h2>
+            <p class="cp-section-sub">
+              Résultat en 30 secondes. Gratuit, sans engagement, sans inscription.
+            </p>
+          </div>
+          <div class="cp-engine__card cp-reveal">
+            <div class="cp-engine__fields">
+
+              <!-- Step 1 -->
+              <div>
+                <p class="cp-step-label">01 — Catégorie</p>
+                <div class="cp-chips" id="cp-cats" role="group" aria-label="Sélectionner une catégorie">
+                  <button class="cp-chip" data-cat="smartphone"  type="button">📱 Smartphone</button>
+                  <button class="cp-chip" data-cat="ordinateur"  type="button">💻 Ordinateur</button>
+                  <button class="cp-chip" data-cat="montre"      type="button">⌚ Montre</button>
+                  <button class="cp-chip" data-cat="photo"       type="button">📷 Photo</button>
+                  <button class="cp-chip" data-cat="gaming"      type="button">🎮 Gaming</button>
+                  <button class="cp-chip" data-cat="bijou"       type="button">💎 Bijou</button>
+                  <button class="cp-chip" data-cat="audio"       type="button">🎧 Audio</button>
+                  <button class="cp-chip" data-cat="autre"       type="button">📦 Autre</button>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div>
+                <p class="cp-step-label">02 — Marque & modèle</p>
+                <input
+                  type="text"
+                  id="cp-model"
+                  class="cp-field"
+                  placeholder="ex : iPhone 15 Pro, Rolex Submariner, MacBook Air M3…"
+                  autocomplete="off"
+                  aria-label="Saisir la marque et le modèle"
+                />
+              </div>
+
+              <!-- Step 3 -->
+              <div>
+                <p class="cp-step-label">03 — État général</p>
+                <div class="cp-chips" id="cp-conds" role="group" aria-label="Sélectionner l'état">
+                  <button class="cp-chip" data-cond="mint" type="button">✨ Comme neuf</button>
+                  <button class="cp-chip" data-cond="good" type="button">👍 Bon état</button>
+                  <button class="cp-chip" data-cond="fair" type="button">🔧 Correct</button>
+                  <button class="cp-chip" data-cond="poor" type="button">🔨 À réparer</button>
+                </div>
+              </div>
+
+              <button class="cp-btn cp-btn--primary cp-engine__submit" id="cp-estimate-btn" type="button">
+                Calculer la valeur estimée
+              </button>
+            </div>
+
+            <!-- Result panel -->
+            <div class="cp-result" id="cp-result" role="status" aria-live="polite">
+              <p class="cp-result__eyebrow">Fourchette d'estimation CleanPawn</p>
+              <p class="cp-result__range" id="cp-result-range">— €</p>
+              <p class="cp-result__note" id="cp-result-note"></p>
+              <div class="cp-result__actions">
+                <a href="#" class="cp-btn cp-btn--gold">Déposer cet objet →</a>
+                <a href="#cp-pipeline" class="cp-btn cp-btn--ghost cp-btn--sm">Comment ça marche</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aside cards -->
+        <div class="cp-engine__aside cp-reveal" style="transition-delay:0.15s">
+          <div class="cp-aside-card cp-aside-card--gold">
+            <div class="cp-aside-card__icon">⚡</div>
+            <h3 class="cp-aside-card__title">Paiement sous 24h garanti</h3>
+            <p class="cp-aside-card__body">
+              Dès que vous acceptez notre offre, le virement SEPA est initié.
+              Délai moyen constaté : 18h.
+            </p>
+          </div>
+          <div class="cp-aside-card">
+            <div class="cp-aside-card__icon">🛡</div>
+            <h3 class="cp-aside-card__title">Zéro frais de dépôt</h3>
+            <p class="cp-aside-card__body">
+              L'expertise est offerte. Vous ne payez rien si vous refusez l'offre.
+              Votre objet vous est retourné franco de port.
+            </p>
+          </div>
+          <div class="cp-aside-card">
+            <div class="cp-aside-card__icon">🪪</div>
+            <h3 class="cp-aside-card__title">Experts certifiés</h3>
+            <p class="cp-aside-card__body">
+              Chaque évaluation est réalisée par un expert agréé. Pas d'algorithme
+              seul — un regard humain sur chaque objet.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TRUST MATRIX — KPIs animés
+  ═══════════════════════════════════════ -->
+  <section class="cp-matrix" id="cp-matrix" aria-label="Chiffres clés de confiance">
+    <div class="cp-wrap">
+      <div class="cp-matrix__header cp-reveal">
+        <span class="cp-section-eyebrow">Preuves chiffrées</span>
+        <h2 class="cp-section-title">Des chiffres,<br>pas des promesses.</h2>
+        <p class="cp-section-sub">
+          Données issues de notre back-office, actualisées quotidiennement.
+        </p>
+      </div>
+      <div class="cp-matrix__grid">
+
+        <div class="cp-kpi cp-reveal" data-kpi>
+          <span class="cp-kpi__pill cp-pill--green">↑ En hausse</span>
+          <div class="cp-kpi__icon cp-kpi__icon--blue" aria-hidden="true">⚡</div>
+          <span class="cp-kpi__value">
+            <span data-count="4812">0</span><span class="cp-kpi__value-accent">+</span>
+          </span>
+          <p class="cp-kpi__label">Transactions validées depuis l'ouverture</p>
+        </div>
+
+        <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.1s">
+          <span class="cp-kpi__pill cp-pill--green">Stable</span>
+          <div class="cp-kpi__icon cp-kpi__icon--green" aria-hidden="true">✓</div>
+          <span class="cp-kpi__value">
+            <span data-count="983" data-decimal>0</span><span class="cp-kpi__value-accent">%</span>
+          </span>
+          <p class="cp-kpi__label">Taux de satisfaction vendeurs sur 36 mois</p>
+        </div>
+
+        <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.2s">
+          <span class="cp-kpi__pill cp-pill--gold">Garanti</span>
+          <div class="cp-kpi__icon cp-kpi__icon--gold" aria-hidden="true">⏱</div>
+          <span class="cp-kpi__value">
+            &lt;<span data-count="24">0</span><span class="cp-kpi__value-accent">h</span>
+          </span>
+          <p class="cp-kpi__label">Délai moyen entre dépôt et virement bancaire</p>
+        </div>
+
+        <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.3s">
+          <span class="cp-kpi__pill cp-pill--gold">Record</span>
+          <div class="cp-kpi__icon cp-kpi__icon--dim" aria-hidden="true">🔒</div>
+          <span class="cp-kpi__value">
+            <span data-count="0">0</span><span class="cp-kpi__value-accent"> litige</span>
+          </span>
+          <p class="cp-kpi__label">Litige non résolu en 36 mois d'activité</p>
+        </div>
+
+      </div>
+      <p class="cp-matrix__footnote">
+        — Données vérifiées · Mise à jour quotidienne · <span id="cp-date-matrix"></span> —
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PIPELINE — Process CI/CD style
+  ═══════════════════════════════════════ -->
+  <section class="cp-pipeline" id="cp-pipeline" aria-label="Processus en 4 étapes">
+    <div class="cp-wrap">
+      <div class="cp-pipeline__header cp-reveal">
+        <span class="cp-section-eyebrow">Processus</span>
+        <h2 class="cp-section-title">De l'objet au virement<br>en 4 étapes.</h2>
+        <p class="cp-section-sub">
+          Un pipeline transparent. Vous savez exactement où vous en êtes à chaque instant.
+        </p>
+      </div>
+      <div class="cp-steps cp-reveal" role="list" aria-label="Étapes du processus">
+
+        <div class="cp-step" role="listitem">
+          <div class="cp-step__node cp-step__node--done" aria-label="Étape 1 terminée">1</div>
+          <div class="cp-step__body">
+            <div class="cp-step__head">
+              <span class="cp-step__title">Dépôt</span>
+              <span class="cp-step__time">Immédiat</span>
+            </div>
+            <p class="cp-step__desc">
+              En boutique ou par colis assuré. Reçu signé au dépôt.
+              L'objet est pris en charge et assuré dès ce moment.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step" role="listitem">
+          <div class="cp-step__node cp-step__node--done" aria-label="Étape 2 terminée">2</div>
+          <div class="cp-step__body">
+            <div class="cp-step__head">
+              <span class="cp-step__title">Expertise</span>
+              <span class="cp-step__time">≤ 2h</span>
+            </div>
+            <p class="cp-step__desc">
+              Évaluation par un expert certifié : état, authenticité, valeur
+              marchande réelle. Rapport détaillé disponible.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step" role="listitem">
+          <div class="cp-step__node cp-step__node--active" aria-label="Étape 3 en cours">3</div>
+          <div class="cp-step__body">
+            <div class="cp-step__head">
+              <span class="cp-step__title">Offre ferme</span>
+              <span class="cp-step__time">Même jour</span>
+            </div>
+            <p class="cp-step__desc">
+              Offre ferme par SMS et email. 48h pour accepter ou refuser,
+              sans pression. Si refus, retour objet franco de port.
+            </p>
+          </div>
+        </div>
+
+        <div class="cp-step" role="listitem">
+          <div class="cp-step__node cp-step__node--wait" aria-label="Étape 4 en attente">4</div>
+          <div class="cp-step__body">
+            <div class="cp-step__head">
+              <span class="cp-step__title">Virement SEPA</span>
+              <span class="cp-step__time">≤ 24h</span>
+            </div>
+            <p class="cp-step__desc">
+              Acceptation → virement bancaire sous 24h. Aucun chèque.
+              Aucun espèce. Traçabilité complète.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       MARKET INTEL — Table Bloomberg-style
+  ═══════════════════════════════════════ -->
+  <section class="cp-intel" id="cp-intel" aria-label="Intelligence marché">
+    <div class="cp-wrap">
+      <div class="cp-intel__top cp-reveal">
+        <div>
+          <span class="cp-section-eyebrow">Intelligence marché</span>
+          <h2 class="cp-section-title">Prix du marché<br>en temps réel.</h2>
+          <p class="cp-intel__live">
+            <span class="cp-live-dot" aria-hidden="true"></span>
+            Mis à jour le <span id="cp-last-update">—</span>
+          </p>
+        </div>
+        <a href="#cp-engine" class="cp-btn cp-btn--ghost cp-btn--sm">Estimer mon objet →</a>
+      </div>
+      <div class="cp-table-outer cp-reveal">
+        <table class="cp-table" aria-label="Tableau des prix de rachat par catégorie">
+          <thead>
+            <tr>
+              <th scope="col">Catégorie</th>
+              <th scope="col">Prix moyen</th>
+              <th scope="col">Tendance 30j</th>
+              <th scope="col">Délai moyen</th>
+              <th scope="col">En stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cp-table__cat">📱 Smartphones</td>
+              <td class="cp-table__price">285 €</td>
+              <td><span class="cp-table__trend cp-up">↑ +4.2%</span></td>
+              <td class="cp-table__delay">~18h</td>
+              <td class="cp-table__stock">143</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">⌚ Montres</td>
+              <td class="cp-table__price">820 €</td>
+              <td><span class="cp-table__trend cp-flat">→ 0.0%</span></td>
+              <td class="cp-table__delay">~22h</td>
+              <td class="cp-table__stock">28</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">💻 Ordinateurs</td>
+              <td class="cp-table__price">340 €</td>
+              <td><span class="cp-table__trend cp-down">↓ −1.1%</span></td>
+              <td class="cp-table__delay">~24h</td>
+              <td class="cp-table__stock">67</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">📷 Appareils photo</td>
+              <td class="cp-table__price">610 €</td>
+              <td><span class="cp-table__trend cp-up">↑ +2.8%</span></td>
+              <td class="cp-table__delay">~20h</td>
+              <td class="cp-table__stock">34</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">🎮 Consoles & Gaming</td>
+              <td class="cp-table__price">210 €</td>
+              <td><span class="cp-table__trend cp-up">↑ +6.1%</span></td>
+              <td class="cp-table__delay">~16h</td>
+              <td class="cp-table__stock">89</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">💎 Bijoux</td>
+              <td class="cp-table__price">445 €</td>
+              <td><span class="cp-table__trend cp-up">↑ +1.5%</span></td>
+              <td class="cp-table__delay">~36h</td>
+              <td class="cp-table__stock">22</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">🎧 Audio Hi-Fi</td>
+              <td class="cp-table__price">195 €</td>
+              <td><span class="cp-table__trend cp-down">↓ −0.8%</span></td>
+              <td class="cp-table__delay">~21h</td>
+              <td class="cp-table__stock">51</td>
+            </tr>
+            <tr>
+              <td class="cp-table__cat">🏠 Électroménager</td>
+              <td class="cp-table__price">120 €</td>
+              <td><span class="cp-table__trend cp-flat">→ −0.3%</span></td>
+              <td class="cp-table__delay">~30h</td>
+              <td class="cp-table__stock">38</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       VAULT SECURITY — 3 piliers
+  ═══════════════════════════════════════ -->
+  <section class="cp-vault-sec" id="cp-vault-sec" aria-label="Protocole de sécurité et garanties">
+    <div class="cp-wrap">
+      <div class="cp-vault-sec__header cp-reveal">
+        <span class="cp-section-eyebrow">Protocole de sécurité</span>
+        <h2 class="cp-section-title">Votre objet, protégé<br>du dépôt au paiement.</h2>
+        <p class="cp-section-sub">Trois piliers de confiance. Aucun compromis possible.</p>
+      </div>
+      <div class="cp-vault-pillars">
+
+        <div class="cp-pillar cp-pillar--id cp-reveal">
+          <div class="cp-pillar__ico cp-ico--blue" aria-hidden="true">🪪</div>
+          <h3 class="cp-pillar__title">Identité vérifiée</h3>
+          <p class="cp-pillar__desc">
+            Chaque transaction est liée à une identité vérifiée selon le
+            processus KYC conforme aux exigences légales françaises. Protection
+            totale contre la fraude.
+          </p>
+          <div class="cp-cert-tags">
+            <span class="cp-cert">✓ KYC Conforme</span>
+            <span class="cp-cert">✓ RGPD</span>
+            <span class="cp-cert">✓ Loi Pawn FR</span>
+          </div>
+        </div>
+
+        <div class="cp-pillar cp-pillar--insure cp-reveal" style="transition-delay:.1s">
+          <div class="cp-pillar__ico cp-ico--gold" aria-hidden="true">🛡</div>
+          <h3 class="cp-pillar__title">Objet assuré à 100%</h3>
+          <p class="cp-pillar__desc">
+            Dès la remise en mains propres ou à la réception du colis, votre
+            objet est couvert par notre partenaire assurance à 100% de sa
+            valeur estimée. Vol, casse, perte : tout est inclus.
+          </p>
+          <div class="cp-cert-tags">
+            <span class="cp-cert">✓ Assuré 100%</span>
+            <span class="cp-cert">✓ Vol & Casse</span>
+            <span class="cp-cert">✓ Partenaire AXA</span>
+          </div>
+        </div>
+
+        <div class="cp-pillar cp-pillar--payment cp-reveal" style="transition-delay:.2s">
+          <div class="cp-pillar__ico cp-ico--green" aria-hidden="true">💸</div>
+          <h3 class="cp-pillar__title">Paiement garanti SEPA</h3>
+          <p class="cp-pillar__desc">
+            Virement bancaire SEPA sous 24h à compter de l'acceptation de l'offre.
+            Aucun intermédiaire, aucun délai d'encaissement. Traçabilité intégrale.
+          </p>
+          <div class="cp-cert-tags">
+            <span class="cp-cert">✓ SEPA Garanti</span>
+            <span class="cp-cert">✓ PCI DSS</span>
+            <span class="cp-cert">✓ SSL 256-bit</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER CLEANPAWN (custom)
+  ═══════════════════════════════════════ -->
+  <footer class="cp-footer" id="cp-footer" role="contentinfo" aria-label="Pied de page CleanPawn">
+    <div class="cp-wrap">
+      <div class="cp-footer__body">
+
+        <!-- Brand block -->
+        <div class="cp-footer__brand">
+          <div class="cp-footer__wordmark">
+            <div class="cp-nav__logo-mark" aria-hidden="true">CP</div>
+            CleanPawn
+          </div>
+          <p class="cp-footer__tagline">
+            La plateforme de liquidité d'objets qui remet la confiance
+            au centre de chaque transaction. Agréée, assurée, humaine.
+          </p>
+          <nav class="cp-footer__socials" aria-label="Réseaux sociaux CleanPawn">
+            <a href="#" class="cp-social" aria-label="Instagram CleanPawn">IG</a>
+            <a href="#" class="cp-social" aria-label="LinkedIn CleanPawn">in</a>
+            <a href="#" class="cp-social" aria-label="X / Twitter CleanPawn">𝕏</a>
+            <a href="#" class="cp-social" aria-label="TikTok CleanPawn">TK</a>
+          </nav>
+        </div>
+
+        <!-- Link columns -->
+        <div class="cp-footer__cols">
+          <div>
+            <p class="cp-footer__col-head">Services</p>
+            <ul class="cp-footer__links">
+              <li><a href="#">Vendre un objet</a></li>
+              <li><a href="#">Estimation gratuite</a></li>
+              <li><a href="#">Rachat express</a></li>
+              <li><a href="#">Dépôt-vente</a></li>
+              <li><a href="#">Envoi postal assuré</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="cp-footer__col-head">Catégories</p>
+            <ul class="cp-footer__links">
+              <li><a href="#">Smartphones & Tablettes</a></li>
+              <li><a href="#">Montres & Bijoux</a></li>
+              <li><a href="#">Informatique</a></li>
+              <li><a href="#">Photo & Vidéo</a></li>
+              <li><a href="#">Gaming & Consoles</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="cp-footer__col-head">CleanPawn</p>
+            <ul class="cp-footer__links">
+              <li><a href="#">À propos</a></li>
+              <li><a href="#">Nos experts</a></li>
+              <li><a href="#">Blog marché</a></li>
+              <li><a href="#">Presse</a></li>
+              <li><a href="#">Nous contacter</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="cp-footer__bottom">
+        <span class="cp-footer__regulated" role="note">
+          ⚖ Établissement agréé · Préfecture de Paris · N° 2024-CP-0142
+        </span>
+        <p class="cp-footer__copy">© 2025 CleanPawn SAS — Tous droits réservés</p>
+        <nav class="cp-footer__legal-links" aria-label="Liens légaux">
+          <a href="#">CGU</a>
+          <a href="#">CGV</a>
+          <a href="#">Confidentialité</a>
+          <a href="#">Cookies</a>
+          <a href="#">Mentions légales</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT — Vanilla, no dependencies
+  ═══════════════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ────────────────────────────────────────
+       DATA
+    ──────────────────────────────────────── */
+    var FEED = [
+      { name: 'iPhone 15 Pro Max · 512GB',       amount: '780 €',   status: 'paid'       },
+      { name: 'Leica Q3 · 2023',                 amount: '2 150 €', status: 'paid'       },
+      { name: 'PS5 Slim + 3 jeux',               amount: '340 €',   status: 'paid'       },
+      { name: 'Rolex Oyster Perpetual 36mm',      amount: '4 200 €', status: 'paid'       },
+      { name: 'MacBook Pro M3 · 16GB · 512GB',   amount: '1 180 €', status: 'processing' },
+      { name: 'Sony A7R V + 24-70mm f/2.8',      amount: '2 890 €', status: 'paid'       },
+      { name: 'AirPods Pro 2 · USB-C · Boîte',  amount: '180 €',   status: 'paid'       },
+      { name: 'Canon EOS R6 Mark II',             amount: '1 650 €', status: 'processing' },
+      { name: 'Samsung Galaxy S24 Ultra · 256GB', amount: '680 €',   status: 'paid'       },
+      { name: 'Omega Seamaster Pro Diver 300m',  amount: '3 100 €', status: 'paid'       },
+      { name: 'DJI Mavic 3 Pro · Fly More',      amount: '890 €',   status: 'paid'       },
+      { name: 'iPad Pro M4 · 13" · 256GB',       amount: '720 €',   status: 'processing' },
+    ];
+
+    var STREAM = [
+      { ref: '#4821', name: 'Leica Q3',               price: '2 150 €', city: 'Lyon'       },
+      { ref: '#4820', name: 'iPhone 15 Pro · 256GB',  price: '680 €',   city: 'Paris'      },
+      { ref: '#4819', name: 'Rolex Datejust 41',       price: '5 800 €', city: 'Bordeaux'   },
+      { ref: '#4818', name: 'PS5 + FIFA 25',           price: '320 €',   city: 'Marseille'  },
+      { ref: '#4817', name: 'MacBook Air M3 · 8GB',   price: '940 €',   city: 'Paris'      },
+      { ref: '#4816', name: 'Sony WH-1000XM5',         price: '195 €',   city: 'Nantes'     },
+      { ref: '#4815', name: 'Canon R8 + 50mm f/1.8',  price: '1 120 €', city: 'Lille'      },
+      { ref: '#4814', name: 'Tag Heuer Aquaracer 43', price: '980 €',   city: 'Nice'       },
+      { ref: '#4813', name: 'Nintendo Switch OLED',    price: '180 €',   city: 'Lyon'       },
+      { ref: '#4812', name: 'iPad Pro M2 · 11"',      price: '560 €',   city: 'Paris'      },
+    ];
+
+    var PRICES = {
+      smartphone:  { mint:[400,900],   good:[200,500],  fair:[80,220],   poor:[20,80]  },
+      ordinateur:  { mint:[600,1400],  good:[300,800],  fair:[100,350],  poor:[30,100] },
+      montre:      { mint:[200,8000],  good:[100,4000], fair:[50,2000],  poor:[20,500] },
+      photo:       { mint:[300,3000],  good:[150,1500], fair:[60,600],   poor:[20,150] },
+      gaming:      { mint:[150,600],   good:[80,350],   fair:[30,150],   poor:[10,50]  },
+      bijou:       { mint:[100,5000],  good:[50,2500],  fair:[20,1000],  poor:[10,200] },
+      audio:       { mint:[80,800],    good:[40,400],   fair:[15,150],   poor:[5,40]   },
+      autre:       { mint:[50,500],    good:[20,200],   fair:[10,80],    poor:[5,20]   },
+    };
+
+    /* ────────────────────────────────────────
+       NAV SCROLL
+    ──────────────────────────────────────── */
+    var nav = document.getElementById('cp-nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('cp-nav--scrolled', window.scrollY > 24);
+    }, { passive: true });
+
+    /* ────────────────────────────────────────
+       SCROLL REVEAL
+    ──────────────────────────────────────── */
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('cp-in');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.cp-reveal').forEach(function (el) {
+      revealObs.observe(el);
+    });
+
+    /* ────────────────────────────────────────
+       LIVE FEED
+    ──────────────────────────────────────── */
+    (function () {
+      var feed = document.getElementById('cp-feed');
+      if (!feed) return;
+      var idx = 0;
+
+      function makeItem(d) {
+        var el = document.createElement('div');
+        el.className = 'cp-feed-item';
+        el.innerHTML =
+          '<span class="cp-feed-item__name">' + d.name + '</span>' +
+          '<span class="cp-feed-item__amount">' + d.amount + '</span>' +
+          '<span class="cp-feed-item__tag cp-tag--' + d.status + '">' +
+          (d.status === 'paid' ? 'Payé' : 'En cours') + '</span>';
+        return el;
+      }
+
+      /* Seed with 3 items */
+      FEED.slice(0, 3).forEach(function (d) { feed.appendChild(makeItem(d)); });
+      idx = 3;
+
+      setInterval(function () {
+        var el = makeItem(FEED[idx % FEED.length]);
+        feed.insertBefore(el, feed.firstChild);
+        var items = feed.children;
+        if (items.length > 3) {
+          var last = items[items.length - 1];
+          last.style.transition = 'opacity .3s';
+          last.style.opacity = '0';
+          setTimeout(function () { if (last.parentNode) last.parentNode.removeChild(last); }, 320);
+        }
+        idx++;
+      }, 3200);
+    })();
+
+    /* ────────────────────────────────────────
+       PROOF STREAM (marquee)
+    ──────────────────────────────────────── */
+    (function () {
+      var belt = document.getElementById('cp-stream-belt');
+      if (!belt) return;
+      var doubled = STREAM.concat(STREAM);
+      belt.innerHTML = doubled.map(function (d) {
+        return '<span class="cp-stream__item">' +
+          '<span class="cp-stream__ref">' + d.ref + '</span>' +
+          '<span class="cp-stream__sep">●</span>' +
+          '<span class="cp-stream__name">' + d.name + '</span>' +
+          '<span class="cp-stream__sep">●</span>' +
+          '<span class="cp-stream__price">' + d.price + '</span>' +
+          '<span class="cp-stream__sep">·</span>' +
+          '<span>' + d.city + '</span>' +
+          '<span class="cp-stream__sep">·</span>' +
+          '<span class="cp-stream__ok">✓ Payé</span>' +
+          '</span>';
+      }).join('');
+    })();
+
+    /* ────────────────────────────────────────
+       COUNT-UP
+    ──────────────────────────────────────── */
+    function countUp(el) {
+      if (el.dataset.counted) return;
+      el.dataset.counted = '1';
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var isDecimal = el.hasAttribute('data-decimal');
+      var dur = 1900;
+      var t0 = performance.now();
+      function tick(now) {
+        var p = Math.min((now - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var val = Math.round(target * eased);
+        el.textContent = isDecimal
+          ? (val / 10).toFixed(1)
+          : val.toLocaleString('fr-FR');
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    var kpiObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('[data-count]').forEach(countUp);
+          kpiObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('[data-kpi]').forEach(function (el) {
+      kpiObs.observe(el);
+    });
+
+    /* ────────────────────────────────────────
+       ESTIMATION ENGINE
+    ──────────────────────────────────────── */
+    (function () {
+      var selCat = null, selCond = null;
+
+      document.querySelectorAll('#cp-cats .cp-chip').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('#cp-cats .cp-chip').forEach(function (b) {
+            b.classList.remove('cp-chip--on');
+          });
+          btn.classList.add('cp-chip--on');
+          selCat = btn.getAttribute('data-cat');
+        });
+      });
+
+      document.querySelectorAll('#cp-conds .cp-chip').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('#cp-conds .cp-chip').forEach(function (b) {
+            b.classList.remove('cp-chip--on');
+          });
+          btn.classList.add('cp-chip--on');
+          selCond = btn.getAttribute('data-cond');
+        });
+      });
+
+      document.getElementById('cp-estimate-btn').addEventListener('click', function () {
+        if (!selCat || !selCond) {
+          /* Pulse hint on missing field */
+          var missing = !selCat
+            ? document.getElementById('cp-cats')
+            : document.getElementById('cp-conds');
+          missing.style.transition = 'none';
+          missing.style.outline = '2px solid var(--cp-blue)';
+          missing.style.borderRadius = '6px';
+          setTimeout(function () { missing.style.outline = 'none'; }, 1200);
+          missing.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          return;
+        }
+
+        var result = document.getElementById('cp-result');
+        var rangeEl = document.getElementById('cp-result-range');
+        var noteEl  = document.getElementById('cp-result-note');
+        var brand   = (document.getElementById('cp-model').value || '').trim();
+
+        result.classList.add('cp-result--show');
+        rangeEl.textContent = 'Calcul en cours…';
+        noteEl.textContent  = '';
+
+        setTimeout(function () {
+          var r    = PRICES[selCat][selCond];
+          var min  = r[0], max = r[1];
+          var txns = Math.floor(Math.random() * 80 + 30);
+          rangeEl.textContent = min.toLocaleString('fr-FR') + ' € — ' + max.toLocaleString('fr-FR') + ' €';
+          noteEl.textContent  = 'Estimation' + (brand ? ' pour "' + brand + '"' : '') +
+            ' basée sur ' + txns + ' transactions CleanPawn des 30 derniers jours.';
+          result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 780);
+      });
+    })();
+
+    /* ────────────────────────────────────────
+       DATES
+    ──────────────────────────────────────── */
+    (function () {
+      var now = new Date();
+      var fmt = now.toLocaleDateString('fr-FR', {
+        day: 'numeric', month: 'long', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+      var lu = document.getElementById('cp-last-update');
+      var dm = document.getElementById('cp-date-matrix');
+      if (lu) lu.textContent = fmt;
+      if (dm) dm.textContent = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    })();
+
+  })();
+  </script>
+
+</body>
+</html>

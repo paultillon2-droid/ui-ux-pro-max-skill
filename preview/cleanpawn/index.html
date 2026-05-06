@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CleanPawn — Transformez vos objets en liquidités. Expertise humaine, paiement sous 24h, zéro frais de dépôt." />
+  <title>CleanPawn — Transformez vos objets en liquidités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════ -->
+<nav class="cp-nav" id="cp-nav">
+  <div class="cp-nav__inner">
+    <a href="#" class="cp-nav__logo">
+      <div class="cp-nav__mark">CP</div>
+      CleanPawn
+    </a>
+    <div class="cp-nav__links">
+      <a href="#engine">Estimer</a>
+      <a href="#intel">Marché</a>
+      <a href="#pipeline">Comment ça marche</a>
+      <a href="#vault">Garanties</a>
+    </div>
+    <div class="cp-nav__actions">
+      <a href="#" class="cp-nav__login">Connexion</a>
+      <a href="#engine" class="cp-btn cp-btn--primary cp-btn--sm">Estimer mon objet</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     HERO — COMMAND CENTER
+═══════════════════════════════════════════════ -->
+<section class="cp-hero" id="hero">
+  <div class="cp-wrap cp-hero__grid">
+
+    <!-- Headline -->
+    <div class="cp-hero__left">
+      <span class="cp-badge">
+        <span class="cp-badge__dot"></span>
+        Plateforme de liquidité d'objets
+      </span>
+      <h1 class="cp-hero__title">
+        Transformez<br>
+        <em>vos objets</em><br>
+        en liquidités.
+      </h1>
+      <p class="cp-hero__sub">
+        Expertise humaine certifiée. Virement bancaire sous 24h.
+        Zéro frais de dépôt. Zéro mauvaise surprise.
+      </p>
+      <div class="cp-hero__actions">
+        <a href="#engine" class="cp-btn cp-btn--primary">Estimer mon objet →</a>
+        <a href="#intel"  class="cp-btn cp-btn--ghost">Voir les prix du marché</a>
+      </div>
+      <div class="cp-hero__proof">
+        <span class="cp-proof-chip">4 812 transactions validées</span>
+        <span class="cp-proof-chip">0 litige en 36 mois</span>
+        <span class="cp-proof-chip">Noté 4.9 / 5</span>
+      </div>
+    </div>
+
+    <!-- Dashboard widget -->
+    <div class="cp-hero__right">
+      <div class="cp-dashboard">
+        <div class="cp-db-header">
+          <span class="cp-db-title">Vault Live</span>
+          <span class="cp-live-dot"></span>
+          <span class="cp-db-sub">Activité en direct</span>
+        </div>
+        <div class="cp-db-stats">
+          <div class="cp-db-stat">
+            <span class="cp-db-stat__val">42 380 €</span>
+            <span class="cp-db-stat__lbl">Volume aujourd'hui</span>
+          </div>
+          <div class="cp-db-stat">
+            <span class="cp-db-stat__val">131</span>
+            <span class="cp-db-stat__lbl">Objets en cours</span>
+          </div>
+        </div>
+        <!-- Sparkline -->
+        <div class="cp-sparkline-wrap">
+          <svg class="cp-sparkline" viewBox="0 0 300 56" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%"   stop-color="#3B82F6" stop-opacity="0.32"/>
+                <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="cp-spark-fill"
+              d="M0,44 L25,38 L55,42 L80,28 L110,30 L135,18 L160,22 L185,14 L210,16 L235,9 L262,6 L300,3 L300,56 L0,56 Z"
+              fill="url(#sg)"/>
+            <path class="cp-spark-line"
+              d="M0,44 L25,38 L55,42 L80,28 L110,30 L135,18 L160,22 L185,14 L210,16 L235,9 L262,6 L300,3"
+              fill="none" stroke="#3B82F6" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <!-- Live feed -->
+        <div class="cp-feed" id="cp-feed" aria-live="polite"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PROOF STREAM
+═══════════════════════════════════════════════ -->
+<div class="cp-stream">
+  <div class="cp-stream__belt" id="cp-belt"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     ESTIMATION ENGINE
+═══════════════════════════════════════════════ -->
+<section class="cp-engine" id="engine">
+  <div class="cp-wrap">
+    <div class="cp-engine__layout">
+
+      <!-- Form card -->
+      <div>
+        <div class="cp-engine__head cp-reveal">
+          <span class="cp-eyebrow">Estimation instantanée</span>
+          <h2 class="cp-section-title">Combien vaut<br>votre objet ?</h2>
+          <p class="cp-section-sub">Résultat en 30 secondes. Gratuit, sans engagement.</p>
+        </div>
+        <div class="cp-engine__card cp-reveal" style="transition-delay:.1s">
+          <div class="cp-engine__fields">
+
+            <div>
+              <p class="cp-step-label">01 — Catégorie</p>
+              <div class="cp-chips" id="cp-cats">
+                <button class="cp-chip" data-cat="smartphone"  type="button">📱 Smartphone</button>
+                <button class="cp-chip" data-cat="ordinateur"  type="button">💻 Ordinateur</button>
+                <button class="cp-chip" data-cat="montre"      type="button">⌚ Montre</button>
+                <button class="cp-chip" data-cat="photo"       type="button">📷 Photo</button>
+                <button class="cp-chip" data-cat="gaming"      type="button">🎮 Gaming</button>
+                <button class="cp-chip" data-cat="bijou"       type="button">💎 Bijou</button>
+                <button class="cp-chip" data-cat="audio"       type="button">🎧 Audio</button>
+                <button class="cp-chip" data-cat="autre"       type="button">📦 Autre</button>
+              </div>
+            </div>
+
+            <div>
+              <p class="cp-step-label">02 — Marque &amp; modèle</p>
+              <input type="text" id="cp-model" class="cp-field"
+                placeholder="ex : iPhone 15 Pro, Rolex Submariner, MacBook Air M3…"
+                autocomplete="off" />
+            </div>
+
+            <div>
+              <p class="cp-step-label">03 — État général</p>
+              <div class="cp-chips" id="cp-conds">
+                <button class="cp-chip" data-cond="mint" type="button">✨ Comme neuf</button>
+                <button class="cp-chip" data-cond="good" type="button">👍 Bon état</button>
+                <button class="cp-chip" data-cond="fair" type="button">🔧 Correct</button>
+                <button class="cp-chip" data-cond="poor" type="button">🔨 À réparer</button>
+              </div>
+            </div>
+
+            <button class="cp-btn cp-btn--primary cp-engine__submit" id="cp-estimate-btn" type="button">
+              Calculer la valeur estimée
+            </button>
+          </div>
+
+          <!-- Result -->
+          <div class="cp-result" id="cp-result" aria-live="polite">
+            <p class="cp-result__eyebrow">Fourchette d'estimation CleanPawn</p>
+            <p class="cp-result__range" id="cp-result-range"></p>
+            <p class="cp-result__note"  id="cp-result-note"></p>
+            <div class="cp-result__actions">
+              <a href="#" class="cp-btn cp-btn--gold">Déposer cet objet →</a>
+              <a href="#pipeline" class="cp-btn cp-btn--ghost cp-btn--sm">Comment ça marche</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aside cards -->
+      <div class="cp-aside cp-reveal" style="transition-delay:.2s">
+        <div class="cp-aside-card gold">
+          <div class="cp-aside-card__icon">⚡</div>
+          <h3 class="cp-aside-card__title">Paiement sous 24h garanti</h3>
+          <p class="cp-aside-card__body">
+            Dès que vous acceptez notre offre, le virement SEPA est initié.
+            Délai moyen constaté : 18h.
+          </p>
+        </div>
+        <div class="cp-aside-card">
+          <div class="cp-aside-card__icon">🛡</div>
+          <h3 class="cp-aside-card__title">Zéro frais de dépôt</h3>
+          <p class="cp-aside-card__body">
+            L'expertise est offerte. Vous ne payez rien si vous refusez l'offre.
+            Retour objet franco de port garanti.
+          </p>
+        </div>
+        <div class="cp-aside-card">
+          <div class="cp-aside-card__icon">🪪</div>
+          <h3 class="cp-aside-card__title">Experts certifiés</h3>
+          <p class="cp-aside-card__body">
+            Chaque évaluation est réalisée par un expert agréé.
+            Un regard humain sur chaque objet.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TRUST MATRIX
+═══════════════════════════════════════════════ -->
+<section class="cp-matrix" id="matrix">
+  <div class="cp-wrap">
+    <div class="cp-matrix__header cp-reveal">
+      <span class="cp-eyebrow">Preuves chiffrées</span>
+      <h2 class="cp-section-title">Des chiffres,<br>pas des promesses.</h2>
+      <p class="cp-section-sub">Données issues de notre back-office, actualisées quotidiennement.</p>
+    </div>
+    <div class="cp-matrix__grid">
+
+      <div class="cp-kpi cp-reveal" data-kpi>
+        <span class="cp-kpi__pill cp-pill-green">↑ En hausse</span>
+        <div class="cp-kpi__icon blue">⚡</div>
+        <span class="cp-kpi__value">
+          <span data-count="4812">0</span><span class="cp-kpi__accent">+</span>
+        </span>
+        <p class="cp-kpi__label">Transactions validées depuis l'ouverture</p>
+      </div>
+
+      <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.1s">
+        <span class="cp-kpi__pill cp-pill-green">Stable</span>
+        <div class="cp-kpi__icon green">✓</div>
+        <span class="cp-kpi__value">
+          <span data-count="983" data-decimal>0</span><span class="cp-kpi__accent">%</span>
+        </span>
+        <p class="cp-kpi__label">Taux de satisfaction vendeurs sur 36 mois</p>
+      </div>
+
+      <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.2s">
+        <span class="cp-kpi__pill cp-pill-gold">Garanti</span>
+        <div class="cp-kpi__icon gold">⏱</div>
+        <span class="cp-kpi__value">
+          &lt;<span data-count="24">0</span><span class="cp-kpi__accent">h</span>
+        </span>
+        <p class="cp-kpi__label">Délai moyen entre dépôt et virement</p>
+      </div>
+
+      <div class="cp-kpi cp-reveal" data-kpi style="transition-delay:.3s">
+        <span class="cp-kpi__pill cp-pill-gold">Record</span>
+        <div class="cp-kpi__icon dim">🔒</div>
+        <span class="cp-kpi__value">
+          <span data-count="0">0</span><span class="cp-kpi__accent"> litige</span>
+        </span>
+        <p class="cp-kpi__label">Non résolu en 36 mois d'activité</p>
+      </div>
+
+    </div>
+    <p class="cp-matrix__note">
+      — Données vérifiées · Mise à jour <span id="cp-date-matrix"></span> —
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PIPELINE
+═══════════════════════════════════════════════ -->
+<section class="cp-pipeline" id="pipeline">
+  <div class="cp-wrap">
+    <div class="cp-pipeline__header cp-reveal">
+      <span class="cp-eyebrow">Processus</span>
+      <h2 class="cp-section-title">De l'objet au virement<br>en 4 étapes.</h2>
+      <p class="cp-section-sub">Un pipeline transparent — vous savez exactement où vous en êtes.</p>
+    </div>
+    <div class="cp-steps cp-reveal" style="transition-delay:.1s">
+
+      <div class="cp-step">
+        <div class="cp-step__node done">1</div>
+        <div class="cp-step__body">
+          <div class="cp-step__head">
+            <span class="cp-step__title">Dépôt</span>
+            <span class="cp-step__time">Immédiat</span>
+          </div>
+          <p class="cp-step__desc">En boutique ou par colis assuré. Reçu signé immédiatement. L'objet est couvert dès la remise.</p>
+        </div>
+      </div>
+
+      <div class="cp-step">
+        <div class="cp-step__node done">2</div>
+        <div class="cp-step__body">
+          <div class="cp-step__head">
+            <span class="cp-step__title">Expertise</span>
+            <span class="cp-step__time">≤ 2h</span>
+          </div>
+          <p class="cp-step__desc">Évaluation par un expert certifié : état, authenticité, valeur marchande réelle.</p>
+        </div>
+      </div>
+
+      <div class="cp-step">
+        <div class="cp-step__node active">3</div>
+        <div class="cp-step__body">
+          <div class="cp-step__head">
+            <span class="cp-step__title">Offre ferme</span>
+            <span class="cp-step__time">Même jour</span>
+          </div>
+          <p class="cp-step__desc">Offre ferme par SMS et email. 48h pour accepter ou refuser. Si refus, retour objet franco.</p>
+        </div>
+      </div>
+
+      <div class="cp-step">
+        <div class="cp-step__node wait">4</div>
+        <div class="cp-step__body">
+          <div class="cp-step__head">
+            <span class="cp-step__title">Virement SEPA</span>
+            <span class="cp-step__time">≤ 24h</span>
+          </div>
+          <p class="cp-step__desc">Acceptation → virement bancaire sous 24h. Aucun chèque. Traçabilité complète.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MARKET INTEL
+═══════════════════════════════════════════════ -->
+<section class="cp-intel" id="intel">
+  <div class="cp-wrap">
+    <div class="cp-intel__top cp-reveal">
+      <div>
+        <span class="cp-eyebrow">Intelligence marché</span>
+        <h2 class="cp-section-title">Prix du marché<br>en temps réel.</h2>
+        <p class="cp-intel__live">
+          <span class="cp-live-dot"></span>
+          Mis à jour le <span id="cp-last-update"></span>
+        </p>
+      </div>
+      <a href="#engine" class="cp-btn cp-btn--ghost cp-btn--sm">Estimer mon objet →</a>
+    </div>
+    <div class="cp-table-outer cp-reveal" style="transition-delay:.1s">
+      <table class="cp-table">
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Prix moyen</th>
+            <th>Tendance 30j</th>
+            <th>Délai moyen</th>
+            <th>En stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cp-table__cat">📱 Smartphones</td>    <td class="cp-table__price">285 €</td>  <td><span class="cp-table__trend cp-up">↑ +4.2%</span></td>   <td class="cp-table__delay">~18h</td><td class="cp-table__stock">143</td></tr>
+          <tr><td class="cp-table__cat">⌚ Montres</td>         <td class="cp-table__price">820 €</td>  <td><span class="cp-table__trend cp-flat">→ 0.0%</span></td>  <td class="cp-table__delay">~22h</td><td class="cp-table__stock">28</td></tr>
+          <tr><td class="cp-table__cat">💻 Ordinateurs</td>    <td class="cp-table__price">340 €</td>  <td><span class="cp-table__trend cp-down">↓ −1.1%</span></td> <td class="cp-table__delay">~24h</td><td class="cp-table__stock">67</td></tr>
+          <tr><td class="cp-table__cat">📷 Appareils photo</td><td class="cp-table__price">610 €</td>  <td><span class="cp-table__trend cp-up">↑ +2.8%</span></td>   <td class="cp-table__delay">~20h</td><td class="cp-table__stock">34</td></tr>
+          <tr><td class="cp-table__cat">🎮 Gaming</td>         <td class="cp-table__price">210 €</td>  <td><span class="cp-table__trend cp-up">↑ +6.1%</span></td>   <td class="cp-table__delay">~16h</td><td class="cp-table__stock">89</td></tr>
+          <tr><td class="cp-table__cat">💎 Bijoux</td>          <td class="cp-table__price">445 €</td>  <td><span class="cp-table__trend cp-up">↑ +1.5%</span></td>   <td class="cp-table__delay">~36h</td><td class="cp-table__stock">22</td></tr>
+          <tr><td class="cp-table__cat">🎧 Audio Hi-Fi</td>    <td class="cp-table__price">195 €</td>  <td><span class="cp-table__trend cp-down">↓ −0.8%</span></td> <td class="cp-table__delay">~21h</td><td class="cp-table__stock">51</td></tr>
+          <tr><td class="cp-table__cat">🏠 Électroménager</td> <td class="cp-table__price">120 €</td>  <td><span class="cp-table__trend cp-flat">→ −0.3%</span></td> <td class="cp-table__delay">~30h</td><td class="cp-table__stock">38</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     VAULT SECURITY
+═══════════════════════════════════════════════ -->
+<section class="cp-vault" id="vault">
+  <div class="cp-wrap">
+    <div class="cp-vault__header cp-reveal">
+      <span class="cp-eyebrow">Protocole de sécurité</span>
+      <h2 class="cp-section-title">Votre objet, protégé<br>du dépôt au paiement.</h2>
+      <p class="cp-section-sub">Trois piliers de confiance. Aucun compromis.</p>
+    </div>
+    <div class="cp-pillars">
+
+      <div class="cp-pillar id cp-reveal">
+        <div class="cp-pillar__ico cp-ico-blue">🪪</div>
+        <h3 class="cp-pillar__title">Identité vérifiée</h3>
+        <p class="cp-pillar__desc">Chaque transaction est liée à une identité vérifiée selon le processus KYC conforme aux exigences légales françaises.</p>
+        <div class="cp-certs">
+          <span class="cp-cert">✓ KYC Conforme</span>
+          <span class="cp-cert">✓ RGPD</span>
+          <span class="cp-cert">✓ Loi Pawn FR</span>
+        </div>
+      </div>
+
+      <div class="cp-pillar insure cp-reveal" style="transition-delay:.1s">
+        <div class="cp-pillar__ico cp-ico-gold">🛡</div>
+        <h3 class="cp-pillar__title">Objet assuré à 100%</h3>
+        <p class="cp-pillar__desc">Dès la remise, votre objet est couvert par notre partenaire assurance à 100% de sa valeur estimée. Vol, casse, perte : tout est inclus.</p>
+        <div class="cp-certs">
+          <span class="cp-cert">✓ Assuré 100%</span>
+          <span class="cp-cert">✓ Vol &amp; Casse</span>
+          <span class="cp-cert">✓ Partenaire AXA</span>
+        </div>
+      </div>
+
+      <div class="cp-pillar payment cp-reveal" style="transition-delay:.2s">
+        <div class="cp-pillar__ico cp-ico-green">💸</div>
+        <h3 class="cp-pillar__title">Paiement garanti SEPA</h3>
+        <p class="cp-pillar__desc">Virement bancaire SEPA sous 24h dès acceptation. Aucun intermédiaire, aucun délai d'encaissement. Traçabilité intégrale.</p>
+        <div class="cp-certs">
+          <span class="cp-cert">✓ SEPA Garanti</span>
+          <span class="cp-cert">✓ PCI DSS</span>
+          <span class="cp-cert">✓ SSL 256-bit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER CLEANPAWN
+═══════════════════════════════════════════════ -->
+<footer class="cp-footer">
+  <div class="cp-wrap">
+    <div class="cp-footer__body">
+
+      <div class="cp-footer__brand">
+        <div class="cp-footer__wordmark">
+          <div class="cp-nav__mark">CP</div>
+          CleanPawn
+        </div>
+        <p class="cp-footer__tagline">
+          La plateforme de liquidité d'objets qui remet la confiance
+          au centre de chaque transaction. Agréée, assurée, humaine.
+        </p>
+        <div class="cp-footer__socials">
+          <a href="#" class="cp-social">IG</a>
+          <a href="#" class="cp-social">in</a>
+          <a href="#" class="cp-social">𝕏</a>
+          <a href="#" class="cp-social">TK</a>
+        </div>
+      </div>
+
+      <div class="cp-footer__cols">
+        <div>
+          <p class="cp-footer__col-head">Services</p>
+          <ul class="cp-footer__links">
+            <li><a href="#">Vendre un objet</a></li>
+            <li><a href="#">Estimation gratuite</a></li>
+            <li><a href="#">Rachat express</a></li>
+            <li><a href="#">Dépôt-vente</a></li>
+            <li><a href="#">Envoi postal assuré</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="cp-footer__col-head">Catégories</p>
+          <ul class="cp-footer__links">
+            <li><a href="#">Smartphones &amp; Tablettes</a></li>
+            <li><a href="#">Montres &amp; Bijoux</a></li>
+            <li><a href="#">Informatique</a></li>
+            <li><a href="#">Photo &amp; Vidéo</a></li>
+            <li><a href="#">Gaming &amp; Consoles</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="cp-footer__col-head">CleanPawn</p>
+          <ul class="cp-footer__links">
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Nos experts</a></li>
+            <li><a href="#">Blog marché</a></li>
+            <li><a href="#">Presse</a></li>
+            <li><a href="#">Nous contacter</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cp-footer__bottom">
+      <span class="cp-footer__regulated">
+        ⚖ Établissement agréé · Préfecture de Paris · N° 2024-CP-0142
+      </span>
+      <p class="cp-footer__copy">© 2025 CleanPawn SAS — Tous droits réservés</p>
+      <nav class="cp-footer__legal">
+        <a href="#">CGU</a>
+        <a href="#">CGV</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Cookies</a>
+        <a href="#">Mentions légales</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
