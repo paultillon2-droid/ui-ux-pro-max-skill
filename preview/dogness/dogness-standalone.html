@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="PattePropre — Nettoyeur automatique de pattes pour chien. Patte boueuse ? Propre en 3 secondes. Livraison gratuite."/>
+<title>PattePropre — Nettoyeur automatique de pattes pour chien</title>
+<style>
+/* ============================================================
+   PATTEPROPRE — E-Commerce Standalone
+   Produit : Nettoyeur automatique de pattes DOGNESS
+   Palette : Blanc chaud · Rose #E8526A · Sombre #1A1825
+   Mobile-first · Zéro dépendance · System fonts
+============================================================ */
+:root{
+  --bg:#FDFCFA;
+  --white:#FFFFFF;
+  --dark:#1A1825;
+  --text:#1A1825;
+  --muted:#6B7280;
+  --dim:#9CA3AF;
+  --accent:#E8526A;
+  --accent-d:rgba(232,82,106,.11);
+  --accent-h:#D63F58;
+  --accent-light:#FFF0F2;
+  --green:#059669;
+  --green-d:rgba(5,150,105,.1);
+  --gold:#F59E0B;
+  --border:#E5E7EB;
+  --surface:#F9F8F6;
+  --r-xs:4px;--r-sm:8px;--r:14px;--r-lg:22px;--r-xl:32px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'SF Mono','Cascadia Code',ui-monospace,'Courier New',monospace;
+  --t:.22s;--ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+ul{list-style:none}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+input{font-family:var(--font)}
+
+/* ── UTILS ────────────────────────────────────────────────── */
+.wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 18px}
+.hidden{display:none}
+
+/* ── REVEAL ───────────────────────────────────────────────── */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rev.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+
+/* ── ANNOUNCEMENT BAR ─────────────────────────────────────── */
+.ann{background:var(--accent);color:#fff;text-align:center;padding:9px 18px;font-size:.82rem;font-weight:600;letter-spacing:.02em;position:relative;z-index:100}
+.ann span{opacity:.85}
+.ann strong{font-weight:700}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;height:58px}
+.nav-i{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1140px;margin:0 auto;padding:0 18px}
+.brand{display:flex;align-items:center;gap:9px;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:var(--dark)}
+.brand-paw{font-size:22px;line-height:1}
+.nav-r{display:flex;align-items:center;gap:16px}
+.nav-link{font-size:.85rem;font-weight:500;color:var(--muted);transition:color var(--t)}
+.nav-link:hover{color:var(--dark)}
+.cart-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;background:var(--dark);color:#fff;border-radius:var(--r-sm);font-size:.85rem;font-weight:600;transition:background var(--t)}
+.cart-btn:hover{background:#2D2B3D}
+.cart-count{background:var(--accent);color:#fff;border-radius:100px;font-size:.72rem;font-weight:700;padding:1px 6px;min-width:18px;text-align:center;line-height:1.4}
+.nav-links-d{display:none}
+@media(min-width:768px){.nav-links-d{display:flex;align-items:center;gap:24px}}
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 28px;border-radius:var(--r-sm);font-size:1rem;font-weight:700;transition:all var(--t) var(--ease);cursor:pointer;border:none;font-family:var(--font);line-height:1;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.btn-a{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(232,82,106,.35)}
+.btn-a:hover{background:var(--accent-h);box-shadow:0 6px 28px rgba(232,82,106,.45);transform:translateY(-1px)}
+.btn-a:active{transform:translateY(0)}
+.btn-d{background:var(--dark);color:#fff}
+.btn-d:hover{background:#2D2B3D;transform:translateY(-1px)}
+.btn-o{background:transparent;color:var(--dark);border:2px solid var(--border);padding:13px 24px}
+.btn-o:hover{border-color:var(--dark)}
+.btn-full{width:100%}
+.btn-lg{padding:18px 32px;font-size:1.0625rem}
+
+/* ── STARS ────────────────────────────────────────────────── */
+.stars{display:inline-flex;gap:2px;color:var(--gold);font-size:.9rem}
+.rating-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rating-count{font-size:.875rem;color:var(--muted)}
+.rating-val{font-size:.875rem;font-weight:700;color:var(--dark)}
+
+/* ── TRUST BADGES ─────────────────────────────────────────── */
+.trust-row{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:4px}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted);font-weight:500}
+.trust-item::before{font-size:15px}
+.t-ship::before{content:'🚚'}
+.t-ret::before{content:'↩️'}
+.t-sec::before{content:'🔒'}
+.t-pay::before{content:'💳'}
+
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
+#hero{padding:40px 0 60px;background:var(--bg)}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+@media(min-width:900px){.hero-grid{grid-template-columns:1fr 1fr;gap:64px}}
+
+/* Product Visual */
+.product-visual{
+  background:linear-gradient(145deg,#FFE8EE 0%,#FFF0F5 60%,#FFE0E8 100%);
+  border-radius:var(--r-xl);
+  padding:40px 24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:380px;
+  position:relative;
+  overflow:hidden;
+  order:-1;
+}
+@media(min-width:900px){.product-visual{order:0}}
+.visual-bg-blob{
+  position:absolute;
+  border-radius:50%;
+  opacity:.18;
+  pointer-events:none;
+}
+.blob1{width:280px;height:280px;background:radial-gradient(circle,#E8526A,transparent);top:-60px;right:-60px}
+.blob2{width:200px;height:200px;background:radial-gradient(circle,#FFB8C8,transparent);bottom:-40px;left:-40px}
+
+/* CSS Device illustration */
+.device-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:0}
+.paw-anim{font-size:38px;animation:pawdip 2.8s ease-in-out infinite;position:relative;z-index:2;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
+.device-body{
+  width:100px;height:160px;
+  background:linear-gradient(160deg,#FFB8C8 0%,#FF8FAD 45%,#E87090 100%);
+  border-radius:50px 50px 46px 46px;
+  position:relative;
+  box-shadow:8px 16px 32px rgba(232,80,120,.28),inset -4px -6px 14px rgba(0,0,0,.1),inset 4px 4px 12px rgba(255,255,255,.35);
+  margin-top:-14px;
+  z-index:1;
+}
+.device-body::before{/* top hole */
+  content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  width:60%;height:24px;background:#2D1030;border-radius:50%;opacity:.28}
+.device-body::after{/* button strip */
+  content:'';position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  width:44px;height:7px;background:rgba(255,255,255,.55);border-radius:4px;
+  box-shadow:0 0 8px rgba(255,255,255,.8)}
+.device-light{
+  position:absolute;
+  width:12px;height:12px;
+  background:#5EF3A0;
+  border-radius:50%;
+  bottom:46px;right:18px;
+  box-shadow:0 0 10px #5EF3A0;
+  animation:lightblink 1.8s ease-in-out infinite;
+}
+.device-brand{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.7);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-transform:uppercase}
+.water-drops{display:flex;gap:6px;margin-top:8px;height:24px;align-items:flex-start}
+.drop{width:5px;height:10px;background:linear-gradient(180deg,#60B8FF,#3B8BFF);border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;opacity:0;animation:dropanim 1.8s ease-in infinite}
+.drop:nth-child(2){animation-delay:.3s}
+.drop:nth-child(3){animation-delay:.6s}
+
+/* Product badges on visual */
+.visual-badge{
+  position:absolute;
+  background:var(--white);
+  border-radius:var(--r);
+  padding:10px 14px;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);
+  display:flex;align-items:center;gap:8px;
+  font-size:.8rem;font-weight:600;
+}
+.vb-tl{top:20px;left:16px;color:var(--green)}
+.vb-tr{top:20px;right:16px}
+.vb-br{bottom:20px;right:16px;color:var(--accent)}
+
+/* Right col */
+.hero-content{display:flex;flex-direction:column;gap:20px}
+.hero-label{display:inline-flex;align-items:center;gap:7px;background:var(--accent-d);color:var(--accent);border-radius:100px;padding:5px 12px;font-size:.8rem;font-weight:700;align-self:flex-start}
+.hero-title{font-size:clamp(1.75rem,5vw,2.6rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;color:var(--dark)}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.7}
+.price-block{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.price-now{font-size:2.1rem;font-weight:900;color:var(--accent);letter-spacing:-.02em}
+.price-old{font-size:1.1rem;color:var(--dim);text-decoration:line-through;font-weight:500}
+.price-badge{background:var(--accent);color:#fff;font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:100px;letter-spacing:.03em}
+.stock-alert{display:flex;align-items:center;gap:8px;background:#FFF8F0;border:1px solid #FDDCAA;border-radius:var(--r-sm);padding:10px 14px;font-size:.875rem;font-weight:600;color:#92400E}
+.stock-dot{width:8px;height:8px;border-radius:50%;background:#F59E0B;animation:stockpulse 1.5s ease-in-out infinite;flex-shrink:0}
+.cta-block{display:flex;flex-direction:column;gap:10px}
+.qty-row{display:flex;align-items:center;gap:14px}
+.qty-label{font-size:.875rem;font-weight:600;color:var(--muted)}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.qty-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;color:var(--dark);background:var(--surface);cursor:pointer;transition:background var(--t);user-select:none}
+.qty-btn:hover{background:var(--border)}
+.qty-val{width:44px;text-align:center;font-size:.9rem;font-weight:700;color:var(--dark);border-left:1px solid var(--border);border-right:1px solid var(--border);height:38px;display:flex;align-items:center;justify-content:center}
+
+/* ══════════════════════════════════════════════════════════
+   SOCIAL PROOF BAR
+══════════════════════════════════════════════════════════ */
+#proof-bar{background:var(--dark);padding:20px 0}
+.proof-items{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(min-width:600px){.proof-items{grid-template-columns:repeat(4,1fr)}}
+.proof-item{text-align:center}
+.proof-val{font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:-.03em}
+.proof-lbl{font-size:.78rem;color:rgba(255,255,255,.55);margin-top:3px}
+
+/* ══════════════════════════════════════════════════════════
+   PROBLEM SECTION
+══════════════════════════════════════════════════════════ */
+#problem{padding:80px 0;background:var(--white)}
+.problem-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+@media(min-width:768px){.problem-grid{grid-template-columns:1fr 1fr;gap:64px}}
+.sec-eye{display:block;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.sec-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.15;letter-spacing:-.03em;margin-bottom:16px}
+.sec-sub{font-size:1rem;color:var(--muted);line-height:1.75}
+.problem-list{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.prob-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--surface);border-radius:var(--r);border-left:3px solid var(--accent)}
+.prob-icon{font-size:22px;flex-shrink:0;line-height:1.2}
+.prob-text{font-size:.9rem;line-height:1.6;color:var(--text)}
+.prob-text strong{font-weight:700;color:var(--dark);display:block;margin-bottom:3px}
+
+.ba-card{background:var(--bg);border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border)}
+.ba-top{display:grid;grid-template-columns:1fr 1fr}
+.ba-col{padding:24px 20px;text-align:center}
+.ba-col.before{background:#FFF5F5;border-right:1px solid var(--border)}
+.ba-col.after{background:#F0FFF8}
+.ba-label{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.ba-col.before .ba-label{color:var(--accent)}
+.ba-col.after  .ba-label{color:var(--green)}
+.ba-emoji{font-size:48px;margin-bottom:8px;display:block}
+.ba-text{font-size:.85rem;color:var(--muted);font-weight:500}
+.ba-bottom{padding:16px 20px;text-align:center;background:linear-gradient(135deg,var(--accent),#FF8FAD);color:#fff}
+.ba-bottom p{font-size:.9rem;font-weight:700}
+
+/* ══════════════════════════════════════════════════════════
+   FEATURES
+══════════════════════════════════════════════════════════ */
+#features{padding:80px 0;background:var(--bg)}
+.features-hdr{text-align:center;margin-bottom:48px}
+.features-hdr .sec-sub{max-width:520px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:600px){.feat-grid{grid-template-columns:repeat(3,1fr)}}
+.feat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:box-shadow var(--t) var(--ease),transform var(--t) var(--ease)}
+.feat-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-3px)}
+.feat-icon{font-size:36px;margin-bottom:16px;display:block}
+.feat-title{font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:8px}
+.feat-desc{font-size:.9rem;color:var(--muted);line-height:1.65}
+
+/* ══════════════════════════════════════════════════════════
+   HOW IT WORKS
+══════════════════════════════════════════════════════════ */
+#how{padding:80px 0;background:var(--white)}
+.how-hdr{text-align:center;margin-bottom:52px}
+.steps-row{display:grid;grid-template-columns:1fr;gap:0;position:relative}
+@media(min-width:768px){.steps-row{grid-template-columns:repeat(3,1fr)}}
+.step-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 24px;position:relative}
+.step-card:not(:last-child)::after{
+  content:'→';
+  position:absolute;
+  font-size:1.5rem;
+  color:var(--border);
+  font-weight:700;
+}
+@media(min-width:768px){
+  .step-card:not(:last-child)::after{
+    right:-20px;top:50px;
+  }
+}
+@media(max-width:767px){
+  .step-card:not(:last-child)::after{
+    content:'↓';bottom:-20px;left:50%;transform:translateX(-50%);
+  }
+}
+.step-num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 4px 16px rgba(232,82,106,.3)}
+.step-emoji{font-size:40px;margin-bottom:12px;display:block}
+.step-title{font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:8px}
+.step-desc{font-size:.9rem;color:var(--muted);line-height:1.65;max-width:200px;margin:0 auto}
+
+/* ══════════════════════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════════════════════ */
+#reviews{padding:80px 0;background:var(--bg)}
+.reviews-hdr{text-align:center;margin-bottom:48px}
+.avg-block{display:inline-flex;flex-direction:column;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 32px;margin:0 auto 40px;display:flex}
+.avg-num{font-size:3rem;font-weight:900;color:var(--dark);letter-spacing:-.04em;line-height:1}
+.avg-count{font-size:.85rem;color:var(--muted)}
+.reviews-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:600px){.reviews-grid{grid-template-columns:repeat(3,1fr)}}
+.review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
+.review-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.review-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+.av-rose{background:#FFE0E8;color:#C4436A}
+.av-blue{background:#E0EEFF;color:#3B5DB0}
+.av-green{background:#D8F5ED;color:#2D7A5B}
+.review-meta{}
+.review-name{font-size:.9rem;font-weight:700;color:var(--dark)}
+.review-verified{font-size:.75rem;color:var(--green);font-weight:600}
+.review-body{font-size:.9rem;color:var(--text);line-height:1.7;margin-bottom:12px}
+.review-tag{display:inline-block;background:var(--accent-d);color:var(--accent);border-radius:100px;padding:3px 10px;font-size:.75rem;font-weight:700}
+.review-img-placeholder{height:80px;background:linear-gradient(135deg,#FFE8EE,#FFF0F5);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px}
+
+/* ══════════════════════════════════════════════════════════
+   BUY BLOCK
+══════════════════════════════════════════════════════════ */
+#buy{padding:80px 0;background:var(--white)}
+.buy-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+@media(min-width:900px){.buy-grid{grid-template-columns:1fr 1fr}}
+.buy-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:32px;position:relative}
+.buy-card.featured{border-color:var(--accent);border-width:2px;background:var(--white)}
+.buy-card.featured::before{content:'⭐ MEILLEURE VENTE';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.1em;padding:5px 16px;border-radius:100px;white-space:nowrap}
+.buy-card-title{font-size:1.1rem;font-weight:800;margin-bottom:6px}
+.buy-card-sub{font-size:.85rem;color:var(--muted);margin-bottom:20px}
+.buy-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.buy-price{font-size:2.4rem;font-weight:900;color:var(--accent);letter-spacing:-.03em}
+.buy-old{font-size:1rem;color:var(--dim);text-decoration:line-through}
+.buy-save{background:var(--accent-d);color:var(--accent);font-size:.78rem;font-weight:800;padding:4px 10px;border-radius:100px}
+.buy-perks{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.buy-perk{display:flex;align-items:center;gap:10px;font-size:.875rem;color:var(--text)}
+.buy-perk::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0}
+.guarantee{display:flex;align-items:center;gap:16px;background:var(--green-d);border:1px solid rgba(5,150,105,.2);border-radius:var(--r);padding:18px;margin-top:16px}
+.guarantee-icon{font-size:36px;flex-shrink:0}
+.guarantee-title{font-size:.9rem;font-weight:800;color:var(--dark)}
+.guarantee-text{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+/* ══════════════════════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════════════════════ */
+#faq{padding:80px 0;background:var(--bg)}
+.faq-hdr{text-align:center;margin-bottom:48px}
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;font-size:.9375rem;font-weight:700;color:var(--dark);cursor:pointer;text-align:left;gap:12px;transition:background var(--t)}
+.faq-q:hover{background:var(--surface)}
+.faq-icon{font-size:1.2rem;font-weight:300;color:var(--muted);flex-shrink:0;transition:transform var(--t) var(--ease)}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease),padding var(--t)}
+.faq-a-inner{padding:0 20px 18px;font-size:.9rem;color:var(--muted);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px}
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════ */
+footer{background:var(--dark);padding:48px 0 0}
+.ft-grid{display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+@media(min-width:768px){.ft-grid{grid-template-columns:1.6fr 1fr 1fr}}
+.ft-brand-col .brand{color:#fff;font-size:1.2rem;margin-bottom:14px;display:inline-flex}
+.ft-brand-col .brand-paw{filter:brightness(1.2)}
+.ft-tagline{font-size:.875rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px}
+.ft-socials{display:flex;gap:10px}
+.ft-soc{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:var(--mono);color:rgba(255,255,255,.5);transition:all var(--t)}
+.ft-soc:hover{border-color:var(--accent);color:var(--accent)}
+.ft-col-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.35);margin-bottom:16px}
+.ft-links{display:flex;flex-direction:column;gap:10px}
+.ft-links a{font-size:.875rem;color:rgba(255,255,255,.5);transition:color var(--t)}
+.ft-links a:hover{color:#fff}
+.ft-bottom{display:flex;flex-direction:column;gap:10px;padding:20px 0;align-items:flex-start}
+@media(min-width:600px){.ft-bottom{flex-direction:row;align-items:center;justify-content:space-between}}
+.ft-copy{font-size:.78rem;color:rgba(255,255,255,.3)}
+.ft-legal{display:flex;flex-wrap:wrap;gap:14px}
+.ft-legal a{font-size:.78rem;color:rgba(255,255,255,.3);transition:color var(--t)}
+.ft-legal a:hover{color:rgba(255,255,255,.6)}
+.ft-pay-icons{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pay-icon{background:rgba(255,255,255,.08);border-radius:var(--r-xs);padding:4px 10px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.4)}
+
+/* ══════════════════════════════════════════════════════════
+   STICKY CTA (mobile)
+══════════════════════════════════════════════════════════ */
+#sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  background:var(--white);border-top:1px solid var(--border);
+  padding:12px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 -4px 24px rgba(0,0,0,.08);
+  transition:transform .3s var(--ease);
+}
+#sticky-cta.hidden-sticky{transform:translateY(100%)}
+.sticky-price{display:flex;flex-direction:column}
+.sticky-price-now{font-size:1.1rem;font-weight:900;color:var(--accent)}
+.sticky-price-old{font-size:.78rem;color:var(--dim);text-decoration:line-through}
+.sticky-btn{flex:1;max-width:220px;padding:13px 20px;font-size:.9375rem}
+@media(min-width:900px){#sticky-cta{display:none}}
+
+/* ── KEYFRAMES ────────────────────────────────────────────── */
+@keyframes pawdip{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(22px) rotate(3deg)}}
+@keyframes dropanim{0%{transform:translateY(0);opacity:1}80%{opacity:.6}100%{transform:translateY(18px);opacity:0}}
+@keyframes lightblink{0%,100%{opacity:1;box-shadow:0 0 10px #5EF3A0}50%{opacity:.5;box-shadow:0 0 4px #5EF3A0}}
+@keyframes stockpulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann">
+  🐾 <strong>LIVRAISON GRATUITE</strong> dès 35€ &nbsp;·&nbsp; <span>Retours 30 jours offerts</span> &nbsp;·&nbsp; <strong>-34% ce week-end</strong>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <a href="#" class="brand"><span class="brand-paw">🐾</span>PattePropre</a>
+    <div class="nav-links-d">
+      <a href="#features" class="nav-link">Fonctionnalités</a>
+      <a href="#reviews"  class="nav-link">Avis clients</a>
+      <a href="#faq"      class="nav-link">FAQ</a>
+    </div>
+    <div class="nav-r">
+      <button class="cart-btn" id="nav-cart">
+        🛒 Panier <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <!-- Product visual -->
+      <div class="product-visual">
+        <div class="visual-bg-blob blob1"></div>
+        <div class="visual-bg-blob blob2"></div>
+
+        <div class="visual-badge vb-tl">✓ Nettoyage en 3 sec.</div>
+        <div class="visual-badge vb-tr">⭐ 4.9/5 — 2 400+ avis</div>
+        <div class="visual-badge vb-br">🚚 Expédié sous 24h</div>
+
+        <div class="device-wrap">
+          <div class="paw-anim">🐾</div>
+          <div class="device-body">
+            <div class="device-light"></div>
+            <span class="device-brand">DOGNESS</span>
+          </div>
+          <div class="water-drops">
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero content -->
+      <div class="hero-content rev">
+        <span class="hero-label">🆕 Nouveau · Viral TikTok</span>
+        <h1 class="hero-title">Patte pleine de boue ?<br>Propre en <span style="color:var(--accent)">3 secondes.</span></h1>
+        <p class="hero-sub">Le nettoyeur automatique DOGNESS élimine boue, sable et saletés avec ses brosses silicone rotatives. Effet satisfaisant garanti — votre maison reste impeccable.</p>
+
+        <div class="rating-row">
+          <div class="stars">★★★★★</div>
+          <span class="rating-val">4.9</span>
+          <span class="rating-count">— 2 437 avis vérifiés</span>
+        </div>
+
+        <div class="price-block">
+          <span class="price-now">34,90 €</span>
+          <span class="price-old">52,90 €</span>
+          <span class="price-badge">−34%</span>
+        </div>
+
+        <div class="stock-alert">
+          <span class="stock-dot"></span>
+          Seulement <strong style="margin:0 4px">8 unités</strong> restantes en stock
+        </div>
+
+        <div class="qty-row">
+          <span class="qty-label">Quantité :</span>
+          <div class="qty-ctrl">
+            <div class="qty-btn" id="qty-minus">−</div>
+            <div class="qty-val" id="qty-val">1</div>
+            <div class="qty-btn" id="qty-plus">+</div>
+          </div>
+        </div>
+
+        <div class="cta-block">
+          <button class="btn btn-a btn-full btn-lg" id="add-cart">🛒 Ajouter au panier — 34,90 €</button>
+          <button class="btn btn-d btn-full" id="buy-now">⚡ Acheter maintenant</button>
+        </div>
+
+        <div class="trust-row">
+          <span class="trust-item t-ship">Livraison gratuite dès 35€</span>
+          <span class="trust-item t-ret">Retours 30 jours gratuits</span>
+          <span class="trust-item t-sec">Paiement sécurisé SSL</span>
+          <span class="trust-item t-pay">CB, PayPal, Apple Pay</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF BAR -->
+<div id="proof-bar">
+  <div class="wrap">
+    <div class="proof-items">
+      <div class="proof-item"><div class="proof-val">2 400+</div><div class="proof-lbl">Avis 5 étoiles</div></div>
+      <div class="proof-item"><div class="proof-val">98%</div><div class="proof-lbl">Clients satisfaits</div></div>
+      <div class="proof-item"><div class="proof-val">24h</div><div class="proof-lbl">Expédition express</div></div>
+      <div class="proof-item"><div class="proof-val">30j</div><div class="proof-lbl">Retours gratuits</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div>
+        <span class="sec-eye rev">Le problème</span>
+        <h2 class="sec-title rev">La promenade c'est super.<br>Les pattes qui <span style="color:var(--accent)">salissent tout</span> après… moins.</h2>
+        <p class="sec-sub rev">Chaque retour de balade, c'est la même histoire. Et votre parquet, votre canapé, vos tapis en paient le prix.</p>
+        <div class="problem-list">
+          <div class="prob-item rev"><div class="prob-icon">🏠</div><div class="prob-text"><strong>Maison constamment salie</strong>Empreintes de boue sur les sols, tapis et canapés après chaque promenade.</div></div>
+          <div class="prob-item rev"><div class="prob-icon">😤</div><div class="prob-text"><strong>Nettoyage quotidien épuisant</strong>Serviettes mouillées, bassines, frottage manuel… ça prend du temps et ça ne suffit pas.</div></div>
+          <div class="prob-item rev"><div class="prob-icon">🐕</div><div class="prob-text"><strong>Votre chien supporte mal</strong>Les bains de pattes stressent certains chiens qui s'agitent et résistent.</div></div>
+        </div>
+      </div>
+      <div class="rev" style="transition-delay:.15s">
+        <div class="ba-card">
+          <div class="ba-top">
+            <div class="ba-col before">
+              <div class="ba-label">AVANT</div>
+              <span class="ba-emoji">😩</span>
+              <div class="ba-text">10 min de nettoyage manuel, eau partout, chien stressé, sol toujours sale…</div>
+            </div>
+            <div class="ba-col after">
+              <div class="ba-label">APRÈS</div>
+              <span class="ba-emoji">😍</span>
+              <div class="ba-text">3 secondes. Patte propre. Maison impeccable. Chien heureux.</div>
+            </div>
+          </div>
+          <div class="ba-bottom">
+            <p>🎯 La différence PattePropre : silicone doux + rotation automatique</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="features-hdr rev">
+      <span class="sec-eye">Fonctionnalités</span>
+      <h2 class="sec-title">Conçu pour votre quotidien</h2>
+      <p class="sec-sub">Tout ce dont vous avez besoin. Rien de superflu.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card rev">
+        <span class="feat-icon">🔄</span>
+        <div class="feat-title">Rotation automatique</div>
+        <p class="feat-desc">Les brosses silicone tournent à 360° pour nettoyer entre chaque doigt, même sous la patte. Sans effort de votre part.</p>
+      </div>
+      <div class="feat-card rev" style="transition-delay:.1s">
+        <span class="feat-icon">🌊</span>
+        <div class="feat-title">Rinçage ultra-facile</div>
+        <p class="feat-desc">Remplissez d'eau tiède, appuyez sur le bouton. La patte est propre en 3 secondes. La brosse se déconnecte pour nettoyage rapide.</p>
+      </div>
+      <div class="feat-card rev" style="transition-delay:.2s">
+        <span class="feat-icon">🔋</span>
+        <div class="feat-title">Rechargeable USB-C</div>
+        <p class="feat-desc">Batterie longue durée. 1 charge = plus de 300 utilisations. Compact et léger, parfait pour les sorties et voyages.</p>
+      </div>
+      <div class="feat-card rev" style="transition-delay:.1s">
+        <span class="feat-icon">🧴</span>
+        <div class="feat-title">Silicone médical doux</div>
+        <p class="feat-desc">Les brosses en silicone hypoallergénique massent doucement les coussinets sans les irriter. Adapté aux peaux sensibles.</p>
+      </div>
+      <div class="feat-card rev" style="transition-delay:.2s">
+        <span class="feat-icon">📏</span>
+        <div class="feat-title">Toutes tailles de chiens</div>
+        <p class="feat-desc">Disponible en taille S (petites races) et L (grandes races). Convient du Chihuahua au Labrador.</p>
+      </div>
+      <div class="feat-card rev" style="transition-delay:.3s">
+        <span class="feat-icon">🎨</span>
+        <div class="feat-title">Design élégant</div>
+        <p class="feat-desc">Coloris rose, bleu, vert. S'intègre parfaitement dans votre décoration. Vos invités adoreront l'effet "wow" de la démo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="how-hdr rev">
+      <span class="sec-eye">Mode d'emploi</span>
+      <h2 class="sec-title">En 3 étapes, c'est propre</h2>
+      <p class="sec-sub" style="max-width:480px;margin:0 auto">Aucune installation. Aucune prise de tête. La magie opère en quelques secondes.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-card rev">
+        <div class="step-num">1</div>
+        <span class="step-emoji">💧</span>
+        <div class="step-title">Remplissez d'eau</div>
+        <p class="step-desc">Versez un peu d'eau tiède dans la coupelle. Ajoutez une goutte de shampooing si besoin.</p>
+      </div>
+      <div class="step-card rev" style="transition-delay:.1s">
+        <div class="step-num">2</div>
+        <span class="step-emoji">🐾</span>
+        <div class="step-title">Insérez la patte</div>
+        <p class="step-desc">Glissez délicatement la patte de votre chien. Activez le mode rotation.</p>
+      </div>
+      <div class="step-card rev" style="transition-delay:.2s">
+        <div class="step-num">3</div>
+        <span class="step-emoji">✨</span>
+        <div class="step-title">Patte propre !</div>
+        <p class="step-desc">Essuyez avec une serviette douce. Répétez pour chaque patte. Maison sauvée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="reviews-hdr rev">
+      <span class="sec-eye">Avis clients</span>
+      <h2 class="sec-title">Ce que disent<br>nos clients</h2>
+    </div>
+    <div class="avg-block rev">
+      <div class="stars" style="font-size:1.3rem">★★★★★</div>
+      <div class="avg-num">4.9</div>
+      <div class="avg-count">sur 2 437 avis vérifiés</div>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card rev">
+        <div class="review-img-placeholder">🐕 🐾</div>
+        <div class="review-top">
+          <div class="review-avatar av-rose">S</div>
+          <div class="review-meta">
+            <div class="review-name">Sophie M. — Paris 15e</div>
+            <div class="review-verified">✓ Achat vérifié · il y a 3 jours</div>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p class="review-body" style="margin-top:10px">"Mon Labrador adore ça ! Il pose la patte tout seul maintenant. La boue du parc ? Disparu en 3 secondes. J'aurais dû acheter ça bien avant."</p>
+        <span class="review-tag">🏆 Coup de cœur</span>
+      </div>
+
+      <div class="review-card rev" style="transition-delay:.1s">
+        <div class="review-img-placeholder">🐩 ✨</div>
+        <div class="review-top">
+          <div class="review-avatar av-blue">T</div>
+          <div class="review-meta">
+            <div class="review-name">Thomas D. — Lyon</div>
+            <div class="review-verified">✓ Achat vérifié · il y a 1 semaine</div>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p class="review-body" style="margin-top:10px">"Sceptique au départ, bluffé au résultat. Mon Border Collie était difficile à nettoyer. Là il met la patte dedans sans résister. Effet satisfaisant +++"</p>
+        <span class="review-tag">✅ Recommande</span>
+      </div>
+
+      <div class="review-card rev" style="transition-delay:.2s">
+        <div class="review-img-placeholder">🦮 💦</div>
+        <div class="review-top">
+          <div class="review-avatar av-green">A</div>
+          <div class="review-meta">
+            <div class="review-name">Amélie R. — Bordeaux</div>
+            <div class="review-verified">✓ Achat vérifié · il y a 2 semaines</div>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <p class="review-body" style="margin-top:10px">"Je commande le 2e pour offrir à ma sœur. Le design est super cute, ça marche vraiment et livraison ultra rapide. Parfait cadeau pour un proprio de chien."</p>
+        <span class="review-tag">🎁 Idée cadeau</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUY BLOCK -->
+<section id="buy">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:40px" class="rev">
+      <span class="sec-eye">Commandez maintenant</span>
+      <h2 class="sec-title">Choisissez votre pack</h2>
+    </div>
+    <div class="buy-grid">
+
+      <div class="buy-card rev">
+        <div class="buy-card-title">Pack Découverte</div>
+        <div class="buy-card-sub">Idéal pour essayer</div>
+        <div class="buy-price-row">
+          <span class="buy-price">34,90 €</span>
+          <span class="buy-old">52,90 €</span>
+          <span class="buy-save">Économisez 18€</span>
+        </div>
+        <div class="buy-perks">
+          <span class="buy-perk">1 Nettoyeur DOGNESS (taille au choix)</span>
+          <span class="buy-perk">1 Serviette microfibre offerte</span>
+          <span class="buy-perk">Livraison gratuite</span>
+          <span class="buy-perk">Garantie 30 jours</span>
+        </div>
+        <button class="btn btn-o btn-full" id="buy-single">Choisir ce pack</button>
+      </div>
+
+      <div class="buy-card featured rev" style="transition-delay:.1s">
+        <div class="buy-card-title">Pack Famille</div>
+        <div class="buy-card-sub">Pour 2 chiens ou offrir en cadeau</div>
+        <div class="buy-price-row">
+          <span class="buy-price">54,90 €</span>
+          <span class="buy-old">105,80 €</span>
+          <span class="buy-save">Économisez 51€</span>
+        </div>
+        <div class="buy-perks">
+          <span class="buy-perk">2 Nettoyeurs DOGNESS (tailles au choix)</span>
+          <span class="buy-perk">2 Serviettes microfibre offertes</span>
+          <span class="buy-perk">Livraison prioritaire gratuite</span>
+          <span class="buy-perk">Garantie 30 jours + extension 6 mois</span>
+          <span class="buy-perk">Emballage cadeau offert</span>
+        </div>
+        <button class="btn btn-a btn-full" id="buy-pack">🛒 Ajouter au panier — 54,90 €</button>
+        <div class="guarantee">
+          <span class="guarantee-icon">🛡</span>
+          <div>
+            <div class="guarantee-title">Satisfait ou remboursé 30 jours</div>
+            <p class="guarantee-text">Pas convaincu ? On vous rembourse intégralement, sans questions. Retour franco de port.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-hdr rev">
+      <span class="sec-eye">Questions fréquentes</span>
+      <h2 class="sec-title">On répond à tout</h2>
+    </div>
+    <div class="faq-list" id="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Mon chien va-t-il accepter le nettoyeur ? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui, dans la grande majorité des cas. Les brosses en silicone sont très douces et ont un effet de massage agréable. La plupart des chiens s'habituent dès la première utilisation. Pour les plus craintifs, introduisez-le progressivement avec des récompenses.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quelle taille choisir ? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La taille S convient aux races de moins de 15 kg (Chihuahua, Carlin, Bichon, Cocker…). La taille L convient aux races de plus de 15 kg (Labrador, Golden, Berger Allemand…). En cas de doute, prenez la L — elle s'adapte à toutes les pattes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Combien de temps dure la batterie ? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La batterie lithium de 800 mAh offre plus de 300 cycles de nettoyage par charge. Une recharge complète via USB-C prend environ 90 minutes. Largement suffisant pour plusieurs semaines d'utilisation quotidienne.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Est-ce que c'est facile à nettoyer ? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui, extrêmement. La brosse silicone se détache en une seconde et passe au lave-vaisselle. La coupelle se rince sous le robinet. Le tout est étanche et sèche rapidement.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quel est le délai de livraison ? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Les commandes passées avant 14h sont expédiées le jour même. Livraison en France métropolitaine en 2-4 jours ouvrés. Suivi en temps réel par email et SMS. La livraison est gratuite dès 35€ d'achat.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div class="ft-brand-col">
+        <div class="brand" style="margin-bottom:14px"><span class="brand-paw">🐾</span>PattePropre</div>
+        <p class="ft-tagline">La boutique des propriétaires de chiens qui en ont marre de nettoyer après chaque promenade. Fondée en 2023, livrée dans toute la France.</p>
+        <div class="ft-socials">
+          <a href="#" class="ft-soc">IG</a>
+          <a href="#" class="ft-soc">TK</a>
+          <a href="#" class="ft-soc">FB</a>
+          <a href="#" class="ft-soc">YT</a>
+        </div>
+      </div>
+      <div>
+        <p class="ft-col-h">Boutique</p>
+        <ul class="ft-links">
+          <li><a href="#">Nettoyeur de pattes</a></li>
+          <li><a href="#">Accessoires chien</a></li>
+          <li><a href="#">Packs cadeaux</a></li>
+          <li><a href="#">Nouveautés</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="ft-col-h">Service client</p>
+        <ul class="ft-links">
+          <li><a href="#">Suivre ma commande</a></li>
+          <li><a href="#">Retours & remboursements</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2025 PattePropre SAS — Tous droits réservés</p>
+      <div class="ft-pay-icons">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">PAYPAL</span>
+        <span class="pay-icon">APPLE PAY</span>
+      </div>
+      <nav class="ft-legal">
+        <a href="#">CGV</a><a href="#">Confidentialité</a><a href="#">Cookies</a><a href="#">Mentions légales</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY CTA (mobile) -->
+<div id="sticky-cta">
+  <div class="sticky-price">
+    <span class="sticky-price-now">34,90 €</span>
+    <span class="sticky-price-old">52,90 €</span>
+  </div>
+  <button class="btn btn-a sticky-btn" id="sticky-add">🛒 Ajouter au panier</button>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── REVEAL ──────────────────────────────────────────────── */
+if(window.IntersectionObserver){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.rev').forEach(function(el){io.observe(el);});
+}else{
+  document.querySelectorAll('.rev').forEach(function(el){el.classList.add('in');});
+}
+
+/* ── CART STATE ──────────────────────────────────────────── */
+var cartCount=0;
+function updateCart(n){
+  cartCount+=n;
+  var el=document.getElementById('cart-count');
+  if(el)el.textContent=cartCount;
+  /* Flash feedback */
+  var btn=document.getElementById('nav-cart');
+  if(btn){btn.style.background='var(--accent)';setTimeout(function(){btn.style.background='';},600);}
+}
+
+/* ── QTY ─────────────────────────────────────────────────── */
+var qty=1;
+var qVal=document.getElementById('qty-val');
+document.getElementById('qty-minus').addEventListener('click',function(){if(qty>1){qty--;qVal.textContent=qty;}});
+document.getElementById('qty-plus').addEventListener('click',function(){if(qty<10){qty++;qVal.textContent=qty;}});
+
+/* ── ADD TO CART ─────────────────────────────────────────── */
+function addToCart(n,label){
+  updateCart(n||qty);
+  var btn=document.getElementById('add-cart');
+  if(btn){
+    var orig=btn.textContent;
+    btn.textContent='✅ Ajouté !';
+    btn.style.background='var(--green)';
+    setTimeout(function(){btn.textContent=orig;btn.style.background='';},1500);
+  }
+}
+
+var addBtn=document.getElementById('add-cart');
+if(addBtn)addBtn.addEventListener('click',function(){addToCart(qty);});
+
+var buyNow=document.getElementById('buy-now');
+if(buyNow)buyNow.addEventListener('click',function(){updateCart(qty);alert('Redirection vers le paiement sécurisé…');});
+
+var buySingle=document.getElementById('buy-single');
+if(buySingle)buySingle.addEventListener('click',function(){addToCart(1);});
+
+var buyPack=document.getElementById('buy-pack');
+if(buyPack)buyPack.addEventListener('click',function(){addToCart(2);});
+
+var stickyAdd=document.getElementById('sticky-add');
+if(stickyAdd)stickyAdd.addEventListener('click',function(){addToCart(qty);});
+
+/* ── STICKY CTA visibility ───────────────────────────────── */
+var stickyCta=document.getElementById('sticky-cta');
+var heroSection=document.getElementById('hero');
+if(stickyCta&&heroSection){
+  var heroObs=new IntersectionObserver(function(es){
+    stickyCta.classList.toggle('hidden-sticky',es[0].isIntersecting);
+  },{threshold:.1});
+  heroObs.observe(heroSection);
+}
+
+/* ── FAQ ACCORDION ───────────────────────────────────────── */
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=btn.parentElement;
+    var wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');});
+    if(!wasOpen)item.classList.add('open');
+  });
+});
+
+/* ── NAV SCROLL ──────────────────────────────────────────── */
+var navEl=document.querySelector('nav');
+window.addEventListener('scroll',function(){
+  if(navEl)navEl.style.boxShadow=window.scrollY>10?'0 2px 16px rgba(0,0,0,.08)':'';
+},{passive:true});
+
+})();
+</script>
+</body>
+</html>
